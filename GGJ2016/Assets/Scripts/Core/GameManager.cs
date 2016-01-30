@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,16 @@ public class GameManager : MonoBehaviour {
 
     private static Component getBean(string componentName) {
         return getBean(System.Type.GetType(componentName));
+    }
+
+    public static void WaitTime(float time, Action callback){
+        GameManager instance = GameManager.getInstance();
+        instance.StartCoroutine(KeepWaiting(time, callback));
+    }
+
+    private static IEnumerator KeepWaiting(float time, Action callback) {
+        yield return new WaitForSeconds(time);
+        callback();
     }
 
     private static Component getBean(string objectPath, System.Type componentName) {
