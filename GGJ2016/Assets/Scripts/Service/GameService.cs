@@ -6,7 +6,7 @@ public class GameService : IGameService
 {
     private static readonly GameObject playerObject = GameObject.Find(ElementType.Player.ToString());
 
-    private static readonly int speed = 2;
+    private static readonly int speed = 5;
 
     private GameView gameView;
 
@@ -24,13 +24,14 @@ public class GameService : IGameService
 
     public void MovePlayer()
     {
-        setFixedPosition();
-
         if (currentGameObject != null)
         {
             if (currentGameObject.name.Equals(ElementType.Limit.ToString()))
             {
-                playerObject.transform.position = Vector3.Lerp(playerObject.transform.position, player.getTargetPosition(), Time.deltaTime * speed);
+                float step = speed * Time.deltaTime;
+
+                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), step);
+                setFixedPosition();
             }
         }
     }
