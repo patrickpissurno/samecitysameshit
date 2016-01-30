@@ -25,11 +25,10 @@ public class GameManager : MonoBehaviour {
         started = true;
     }
 
+
     public static T getBean<T>() where T : Component {
         return (T)getBean(typeof(T));
     }
-
-
 
     private static Component getBean(string componentName) {
         return getBean(System.Type.GetType(componentName));
