@@ -10,9 +10,12 @@ public class GameUIView : MonoBehaviour {
     public Image BossIndicator;
     public PauseMenuView PauseMenuView;
     private IGameUIService Service;
+    private static Sprite[] BossSprites;
+    private int BossSpriteIndex = 0;
 
 	void Start () {
         Service = new GameUIService();
+        LoadBossSprites();
         UpdateMonthView();
 	}
 
@@ -21,6 +24,7 @@ public class GameUIView : MonoBehaviour {
         Service.UpdateTimer(Time.deltaTime);
         UpdateClockView();
         UpdateDayView();
+        UpdateBossSprite();
     }
 
     public void PauseButtonClick()
@@ -43,8 +47,26 @@ public class GameUIView : MonoBehaviour {
         Month.text = Service.GetRandomMonth();
     }
 
+    void UpdateBossSprite()
+    {
+        int spriteIndex = Mathf.FloorToInt(8 - 8 * Service.GetHappiness());
+        if (spriteIndex > 7)
+            spriteIndex = 7;
+        if (BossSpriteIndex != spriteIndex)
+        {
+            BossSpriteIndex = spriteIndex;
+            BossIndicator.sprite = BossSprites[BossSpriteIndex];
+        }
+    }
+
     public IGameUIService GetService()
     {
         return Service;
+    }
+
+    void LoadBossSprites()
+    {
+        if(BossSprites == null)
+            BossSprites = Resources.LoadAll<Sprite>("Sprites/boss");
     }
 }
