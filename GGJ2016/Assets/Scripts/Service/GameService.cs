@@ -25,7 +25,7 @@ public class GameService : IGameService
     {
         if (currentGameObject.name.Equals(ElementType.Limit.ToString()))
         {
-            playerObject.transform.position = Vector3.Lerp(playerObject.transform.position, player.getTargetPosition(), Time.deltaTime * speed);
+            //playerObject.transform.position = Vector3.Lerp(playerObject.transform.position, player.getTargetPosition(), Time.deltaTime * speed);
         }
     }
 
@@ -33,7 +33,7 @@ public class GameService : IGameService
     {
             MovePlayer();
         currentGameObject = gameObject;
-        player.setCurrentPosition(playerObject.transform.position);
-        player.setTargetPosition(clickPosition);
+        //player.setCurrentPosition(playerObject.transform.position);
+        //player.setTargetPosition(clickPosition);
     }
 }

@@ -27,7 +27,7 @@ public class SpawnElementsService {
     }
 
     public void WaitAndSearch() {
-        float wait = UnityEngine.Random.Range(2.0f, 5.0f);
+        float wait = UnityEngine.Random.Range(0.5f, 1.5f);
         GameManager.WaitTime(wait, CreateNewElement);
     }
 
@@ -58,11 +58,11 @@ public class SpawnElementsService {
     }
 
     private float GenerateSpeed(StreetSide side) {
-        if (previousSpawnElement != null && previousSpawnElement.speed < 0.25f && previousSpawnElement.side == side) {
-            return UnityEngine.Random.Range(0.15f, 0.35f);
+        if (previousSpawnElement != null && previousSpawnElement.speed < 0.15f && previousSpawnElement.side == side) {
+            return UnityEngine.Random.Range(0.1f, 0.15f);
         }
 
-        return UnityEngine.Random.Range(0.15f, 0.55f);
+        return UnityEngine.Random.Range(0.1f, 0.25f);
     }
 
     private SpawnType GenerateObject() {
