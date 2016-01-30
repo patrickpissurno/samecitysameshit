@@ -11,11 +11,6 @@ public class GameView : MonoBehaviour {
 	}
 
 	void Update () {
-
+        gameService.MovePlayer();
 	}
-
-    void MovePlayer(Vector3 position, Vector3 target, int speed)
-    {
-        ObjectType.playerObject.transform.position = Vector3.Lerp(ObjectType.playerObject.transform.position, target, Time.deltaTime * speed);
-    }
 }

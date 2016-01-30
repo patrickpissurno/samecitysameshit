@@ -4,26 +4,36 @@ using System;
 
 public class GameService : IGameService
 {
+    private static readonly GameObject playerObject = GameObject.Find(ElementType.Player.ToString());
+
     private static readonly int speed = 10;
 
-    GameView gameView;
+    private GameView gameView;
+
+    private PlayerModel player;
+
+    private GameObject currentGameObject;
 
     public void setupGameView(GameView gameView)
     {
         this.gameView = gameView;
-        InputManager.onClickListener += OnClickMove;
+        InputManager.onClickListener += OnClickMove; 
+
     }
 
-    public void MovePlayer(GameObject gameObject, Vector3 target)
+    public void MovePlayer()
     {
-        if (gameObject.name.Equals(ElementType.Limit.ToString()))
+        if (currentGameObject.name.Equals(ElementType.Limit.ToString()))
         {
-            gameView.MovePlayer(playerObject.transform.position, target, speed);
-        }        
+            playerObject.transform.position = Vector3.Lerp(playerObject.transform.position, player.getTargetPosition(), Time.deltaTime * speed);
+        }
     }
 
     void OnClickMove(GameObject gameObject, Vector3 clickPosition)
     {
-            MovePlayer(gameObject, clickPosition);
+            MovePlayer();
+        currentGameObject = gameObject;
+        player.setCurrentPosition(playerObject.transform.position);
+        player.setTargetPosition(clickPosition);
     }
 }

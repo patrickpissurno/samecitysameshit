@@ -5,5 +5,5 @@ public interface IGameService
 {
     void setupGameView(GameView GameView);
 
-    void MovePlayer(GameObject gameObject, Vector3 target);
+    void MovePlayer();
 }
