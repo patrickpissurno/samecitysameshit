@@ -5,8 +5,8 @@ using System.Collections;
 public class AboutMenuView : MonoBehaviour {
 
     public Transform credits;
-    private const int amountToWait = 18;
-    private const float SPEED = 35;
+    private const int amountToWait = 13;
+    private const float SPEED = 45;
     private IAboutMenuService AboutMenuController;
 
     void Start()
