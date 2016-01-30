@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum SpawnElement {
+public enum SpawnType {
 	Car,
     Uber,
     Train,

@@ -8,7 +8,6 @@ public class CameraHelper {
             System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
             System.Reflection.MethodInfo GetSizeOfMainGameView = T.GetMethod("GetSizeOfMainGameView", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             System.Object Res = GetSizeOfMainGameView.Invoke(null, null);
-            Debug.Log(Res);
             return (Vector2)Res;
         } else {
             return new Vector2(Screen.width, Screen.height);
@@ -18,7 +17,6 @@ public class CameraHelper {
     public static Vector4 GetBounds(Camera cam) {
         Vector3 minBounds = GetWorldPositionOnPlane(Vector3.zero, 0);
         Vector3 maxBounds = GetWorldPositionOnPlane(new Vector3(getMainGameViewSize().x, getMainGameViewSize().y, 0), 0);
-        Debug.Log(maxBounds);
         return new Vector4(minBounds.x, minBounds.y, maxBounds.x, maxBounds.y);
     }
 

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 
     private static bool sceneChanged = false;
 
+    public static bool IsPaused = false;
+
     public static bool DebugMode {
         get { return isDebugMode; }
         set { isDebugMode = value; }
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour {
 
     private void OnDestroy() {
         objectContainer.Clear();
+        GameManager.IsPaused = false;
     }
 
     public static GameManager getInstance() {
