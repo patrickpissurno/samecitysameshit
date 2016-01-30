@@ -4,7 +4,7 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 
-    public static Action<GameObject> onClickListener;
+    public static Action<GameObject, Vector3> onClickListener;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000))
         {
-            onClickListener(hit.transform.gameObject);
+            onClickListener(hit.transform.gameObject, hit.point);
         }
     }
 }

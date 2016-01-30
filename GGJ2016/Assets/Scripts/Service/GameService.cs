@@ -4,6 +4,8 @@ using System;
 
 public class GameService : IGameService
 {
+    private static readonly int speed = 10;
+
     GameView gameView;
 
     public void setupGameView(GameView gameView)
@@ -12,14 +14,16 @@ public class GameService : IGameService
         InputManager.onClickListener += OnClickMove;
     }
 
-    public void MovePlayer()
+    public void MovePlayer(GameObject gameObject, Vector3 target)
     {
-
+        if (gameObject.name.Equals(ElementType.Limit.ToString()))
+        {
+            gameView.MovePlayer(playerObject.transform.position, target, speed);
+        }        
     }
 
-    void OnClickMove(GameObject gameObject)
+    void OnClickMove(GameObject gameObject, Vector3 clickPosition)
     {
-        Debug.Log(gameObject.name);
-        MovePlayer();
+            MovePlayer(gameObject, clickPosition);
     }
 }
