@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GameView : MonoBehaviour {
 
-    IGameService gameService;
+    IGameService GameService;
 
 	void Start () {
-        gameService = new GameService();
+        GameService = new GameService();
 	}
 
 	void Update () {
