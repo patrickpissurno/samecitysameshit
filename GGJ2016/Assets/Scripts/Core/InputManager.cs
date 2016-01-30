@@ -21,12 +21,17 @@ public class InputManager : MonoBehaviour {
             #endif
 
             Ray ray = Camera.main.ScreenPointToRay(position);
-            OnMouseDown(new GameObject());
+            OnMouseDown(this.gameObject, ray);
         }
 
 	}
 
-    private void OnMouseDown(GameObject obj) {
-        onClickListener(obj);
+    private void OnMouseDown(GameObject gameObject, Ray ray)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            onClickListener(hit.transform.gameObject);
+        }
     }
 }
