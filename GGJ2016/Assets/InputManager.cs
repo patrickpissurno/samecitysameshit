@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour {
         if(Input.GetMouseButtonDown(0)){
             #if UNITY_ANDROID
                 Vector3 position = Input.GetTouch(0).position;
-            #elif
+            #else
                 Vector3 position = Input.mousePosition;
             #endif
 
