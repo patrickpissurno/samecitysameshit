@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameView : MonoBehaviour {
-
     IGameService gameService;
 
 	void Start () {
@@ -11,6 +11,6 @@ public class GameView : MonoBehaviour {
 	}
 
 	void Update () {
-
+        gameService.MovePlayer();
 	}
 }
