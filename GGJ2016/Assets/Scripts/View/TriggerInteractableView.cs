@@ -5,8 +5,8 @@ using System.Collections;
 public class TriggerInteractableView : MonoBehaviour {
 
     public Action<GameObject> onTriggerEnter;
-    public string tag;
-    public string name;
+    public new string tag;
+    public new string name;
 
     void OnTriggerEnter(Collider col) {
         if (col.tag == tag && col.name != name) {
