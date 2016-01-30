@@ -7,11 +7,11 @@ public class AboutMenuView : MonoBehaviour {
     public Transform credits;
     private const int amountToWait = 18;
     private const float SPEED = 35;
-    private IAboutMenuController AboutMenuController;
+    private IAboutMenuService AboutMenuController;
 
     void Start()
     {
-        AboutMenuController = new AboutMenuController();
+        AboutMenuController = new AboutMenuService();
         StartCoroutine(WaitForAnimation());
     }
 

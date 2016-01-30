@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IAboutMenuController {
+public interface IAboutMenuService {
     void AnimationEnd();
 }

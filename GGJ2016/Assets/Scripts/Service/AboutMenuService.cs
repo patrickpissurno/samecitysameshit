@@ -1,6 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 
-public class AboutMenuController : IAboutMenuController
+public class AboutMenuService : IAboutMenuService
 {
     public void AnimationEnd()
     {
