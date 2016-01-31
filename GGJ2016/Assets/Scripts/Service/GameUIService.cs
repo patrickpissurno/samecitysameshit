@@ -7,7 +7,7 @@ public class GameUIService : IGameUIService
     private static TimeModel TimeModel;
     private static PlayerStatsModel PlayerStatsModel;
     public static GameUIService UIService;
-    private const float TIMER_SPEED = 18f;//.75f;
+    private const float TIMER_SPEED = .75f;
 
     private float timer = 0;
     private bool clockTick = false;
