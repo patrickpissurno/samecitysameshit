@@ -30,7 +30,7 @@ public class BossMoodView : MonoBehaviour {
         string[] anims = new string[]{
             "Happy",
             "Normal",
-            "Angry"
+            "Normal"
         };
         GetComponent<Animation>().Play(anims[frame]);
     }
