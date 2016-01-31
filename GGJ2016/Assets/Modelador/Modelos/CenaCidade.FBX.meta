@@ -3,13 +3,57 @@ guid: 2e00732f1cb72204e8a60fe7f9866389
 timeCreated: 1454205042
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: CenaCidade
+    100004: Object001
+    100006: Object002
+    100008: Object003
+    100010: Object004
+    100012: Object005
+    100014: Object006
+    100016: Object007
+    100018: Rua
     400000: //RootNode
+    400002: CenaCidade
+    400004: Object001
+    400006: Object002
+    400008: Object003
+    400010: Object004
+    400012: Object005
+    400014: Object006
+    400016: Object007
+    400018: Rua
     2300000: //RootNode
+    2300002: CenaCidade
+    2300004: Object001
+    2300006: Object002
+    2300008: Object003
+    2300010: Object004
+    2300012: Object005
+    2300014: Object006
+    2300016: Object007
+    2300018: Rua
     3300000: //RootNode
+    3300002: CenaCidade
+    3300004: Object001
+    3300006: Object002
+    3300008: Object003
+    3300010: Object004
+    3300012: Object005
+    3300014: Object006
+    3300016: Object007
+    3300018: Rua
     4300000: CenaCidade
+    4300002: Rua
+    4300004: Object001
+    4300006: Object002
+    4300008: Object003
+    4300010: Object004
+    4300012: Object005
+    4300014: Object006
+    4300016: Object007
   materials:
     importMaterials: 1
     materialName: 0
@@ -17,6 +61,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -24,9 +69,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
@@ -38,7 +83,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -50,20 +95,19 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
