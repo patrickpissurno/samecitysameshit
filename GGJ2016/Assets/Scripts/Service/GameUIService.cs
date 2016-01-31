@@ -133,7 +133,15 @@ public class GameUIService : IGameUIService
         {
             RebuObject.SetRunAnimation(true);
             if (DelayToAnim())
+            {
                 RebuBG.gameObject.SetActive(true);
+                Vector3 pos;
+                if (Application.platform == RuntimePlatform.Android)
+                    pos = Input.GetTouch(0).position;
+                else
+                    pos = Input.mousePosition;
+                RebuBG.transform.parent.position = pos;
+            }
         }
     }
 
