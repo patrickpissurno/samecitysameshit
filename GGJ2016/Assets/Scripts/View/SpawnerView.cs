@@ -158,14 +158,17 @@ public class SpawnerView : MonoBehaviour {
         List<GameObject> pool = GetPoolByType(Type);
         if(pool != null && pool.Count > 0)
         {
-            if (pool[0] != null)
+            if (Physics.OverlapSphere(Position, .5f).Length == 0)
             {
-                o = pool[0];
-                o.transform.position = Position;
-                o.transform.rotation = Rotation;
-                o.SetActive(true);
+                if (pool[0] != null)
+                {
+                    o = pool[0];
+                    o.transform.position = Position;
+                    o.transform.rotation = Rotation;
+                    o.SetActive(true);
+                }
+                pool.RemoveAt(0);
             }
-            pool.RemoveAt(0);
         }
         return o;
     }
