@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface IGameService
 {
-    void setupGameView(GameView GameView);
+    void SetupGameView(GameView GameView);
 
     void MovePlayer();
 

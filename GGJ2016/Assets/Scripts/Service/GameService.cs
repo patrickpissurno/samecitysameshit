@@ -4,9 +4,9 @@ using System;
 
 public class GameService : IGameService
 {
-    private static readonly GameObject playerObject = GameObject.Find(ElementType.Player.ToString());
+    private static GameObject playerObject = null;
 
-    private static readonly int speed = 5;
+    private const int speed = 5;
 
     private GameView gameView;
 
@@ -16,7 +16,7 @@ public class GameService : IGameService
 
     private GameObject camObject;
 
-    public void setupGameView(GameView gameView)
+    public void SetupGameView(GameView gameView)
     {
         this.gameView = gameView;
         player = new PlayerModel();
@@ -31,14 +31,22 @@ public class GameService : IGameService
         {
             if (currentGameObject.name.Equals(TagType.Limit))
             {
+                LoadPlayer();
                 playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-                setFixedPosition();
+                SetFixedPosition();
             }
         }
     }
 
-    private void setFixedPosition()
+    private void LoadPlayer()
     {
+        if (playerObject == null)
+            playerObject = GameObject.Find(ElementType.Player.ToString());
+    }
+
+    private void SetFixedPosition()
+    {
+        LoadPlayer();
         playerObject.transform.position = new Vector3(playerObject.transform.position.x, 0.7f, playerObject.transform.position.z);
     }
 
@@ -51,7 +59,7 @@ public class GameService : IGameService
             case TagType.BusStop:
                 MovePlayerToBusStop();
                 RunAnimCamToBusStop();
-                player.setTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
+                player.SetTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
 
                 Debug.Log(gameObject.tag);
                 break;
@@ -60,7 +68,7 @@ public class GameService : IGameService
             case TagType.Limit:
                 MovePlayer();
                 RunAnimBusStopToDefault();
-                player.setTargetPosition(clickPosition);
+                player.SetTargetPosition(clickPosition);
 
                 Debug.Log(gameObject.tag);
                 break;
@@ -70,15 +78,16 @@ public class GameService : IGameService
         }
 
 
-        player.setCurrentPosition(playerObject.transform.position);
+        player.SetCurrentPosition(playerObject.transform.position);
     }
 
     public void MovePlayerToBusStop()
     {
         if (currentGameObject != null)
         {
+            LoadPlayer();
             playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-            setFixedPosition();
+            SetFixedPosition();
         }
     }
 

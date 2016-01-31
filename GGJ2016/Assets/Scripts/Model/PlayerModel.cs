@@ -16,12 +16,12 @@ public class PlayerModel {
 
     }
 
-    public void setCurrentPosition(Vector3 currentPosition)
+    public void SetCurrentPosition(Vector3 currentPosition)
     {
         this.currentPosition = currentPosition;
     }
 
-    public void setTargetPosition(Vector3 targetPosition)
+    public void SetTargetPosition(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }

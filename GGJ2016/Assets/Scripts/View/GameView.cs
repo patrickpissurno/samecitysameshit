@@ -7,7 +7,7 @@ public class GameView : MonoBehaviour {
 
 	void Start () {
         gameService = new GameService();
-        gameService.setupGameView(this);
+        gameService.SetupGameView(this);
 	}
 
 	void Update () {
