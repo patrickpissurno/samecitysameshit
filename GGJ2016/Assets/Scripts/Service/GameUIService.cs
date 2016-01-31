@@ -155,19 +155,26 @@ public class GameUIService : IGameUIService
         gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning() && delayToAnim()) ?
             gameObject.GetComponent<Image>().fillAmount + speed
             : 0;
+
+        CallToRebu(gameObject.GetComponent<Image>().fillAmount);
     }
 
     public void CallToRebu(float fillAmount)
     {
         if (fillAmount >= 1)
         {
-            Transform dir = spawnerView.SpawnPositionRight;
-            GameObject o = spawnerView.PoolInstantiate(SpawnerView.EntityType.Uber, dir.position, dir.rotation);
-            if(o != null)
+            if (spawnerView != null)
             {
-                TransportEntityView v = o.GetComponent<TransportEntityView>();
-                v.Speed = 3 + Random.Range(0f, 1f);
+                Transform dir = spawnerView.SpawnPositionRight;
+                GameObject o = spawnerView.PoolInstantiate(SpawnerView.EntityType.Uber, dir.position, dir.rotation);
+                if (o != null)
+                {
+                    TransportEntityView v = o.GetComponent<TransportEntityView>();
+                    v.Speed = 3 + Random.Range(0f, 1f);
+                    Debug.Log("Created Uber");
+                }
             }
+            Debug.Log("Uber Click");
         }
     }
 

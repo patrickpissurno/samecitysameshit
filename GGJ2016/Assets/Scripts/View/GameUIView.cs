@@ -21,6 +21,7 @@ public class GameUIView : MonoBehaviour {
         if (SpawnerView != null)
         {
             SpawnerView.Service = Service;
+            Service.SpawnerView = SpawnerView;
             SpawnerView.DelayedStart();
         }
         LoadBossSprites();
