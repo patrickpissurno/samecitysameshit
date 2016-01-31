@@ -36,7 +36,9 @@ public class SpawnElementsView : MonoBehaviour {
     public void BeginObjectPool() {
 
         CreateInitialObjects(SpawnType.Bus);
-        CreateInitialObjects(SpawnType.Car);
+        CreateInitialObjects(SpawnType.Car0);
+        CreateInitialObjects(SpawnType.Car1);
+        CreateInitialObjects(SpawnType.Car2);
         CreateInitialObjects(SpawnType.Taxi);
         CreateInitialObjects(SpawnType.Uber);
     }
@@ -48,7 +50,7 @@ public class SpawnElementsView : MonoBehaviour {
             Transform spawn = GameManager.getBean<PrefabManager>().LoadPrefab(type.ToString());
             Vector4 bounds = CameraHelper.GetBounds(GameManager.getBean<Camera>());
 
-            Transform t = Instantiate(spawn, new Vector3(bounds.z, spawn.position.y, -5.6f), spawn.rotation) as Transform;
+            Transform t = Instantiate(spawn, new Vector3(bounds.z, spawn.position.y, 17), spawn.rotation) as Transform;
             t.parent = g.transform;
 
             ObjectPoolService pool = new ObjectPoolService() {
@@ -77,7 +79,7 @@ public class SpawnElementsView : MonoBehaviour {
         Vector4 bounds = CameraHelper.GetBounds(GameManager.getBean<Camera>());
         Transform spawn = GameManager.getBean<PrefabManager>().LoadPrefab(component.element.ToString());
 
-        float z = (component.side == StreetSide.LeftSide) ? -6.56f : -5.6f;
+        float z = (component.side == StreetSide.LeftSide) ? 20 : 17;
         float x = (component.side == StreetSide.LeftSide) ? bounds.x : bounds.z;
 
         float bound = (component.side == StreetSide.LeftSide) ? (bounds.z + 5)  : (bounds.x - 5);

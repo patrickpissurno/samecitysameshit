@@ -111,8 +111,12 @@ public class SpawnElementsService {
             case 0:
                 return SpawnType.Bus;
             case 1:
-                return SpawnType.Car;
+                return SpawnType.Car0;
             case 2:
+                return SpawnType.Car1;
+            case 3:
+                return SpawnType.Car2;
+            case 4:
                 return SpawnType.Taxi;
             default:
                 return SpawnType.Uber;
