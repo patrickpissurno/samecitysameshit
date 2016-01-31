@@ -21,6 +21,7 @@ public class GameUIView : MonoBehaviour {
         Service.UpdateTimer(Time.deltaTime);
         UpdateClockView();
         UpdateDayView();
+        setupRebuFillAmount();
     }
 
     public void PauseButtonClick()
@@ -46,5 +47,10 @@ public class GameUIView : MonoBehaviour {
     public IGameUIService GetService()
     {
         return Service;
+    }
+
+    public void setupRebuFillAmount()
+    {
+        Service.SetupRebuFillAmount(GameObject.Find(ElementType.Rebu.ToString()));
     }
 }
