@@ -49,17 +49,17 @@ public class GameUIService : IGameUIService
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(SceneType.Game.ToString());
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(SceneType.MainMenu.ToString());
     }
 
     public void GoToCredits()
     {
-        SceneManager.LoadScene("About");
+        SceneManager.LoadScene(SceneType.About.ToString());
     }
 
     public void GoToGameOver()
