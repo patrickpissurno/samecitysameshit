@@ -75,8 +75,9 @@ ModelImporter:
     400064: nurbsCircle1
     400066: nurbsCircle2
     400068: nurbsCircle3
-    7400000: Take 001
+    7400000: Feliz
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -97,11 +98,113 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Feliz
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: nurbsCircle1
+        weight: 1
+      - path: nurbsCircle1/ikHandle1
+        weight: 1
+      - path: nurbsCircle2
+        weight: 1
+      - path: nurbsCircle2/ikHandle2
+        weight: 1
+      - path: nurbsCircle3
+        weight: 1
+      - path: nurbsCircle3/joint1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint3
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12/joint13/joint14
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12/joint13/joint14/joint15
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12/joint13/joint16
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint10/joint11/joint12/joint13/joint16/joint17
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1/joint13 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1/joint13 1/joint14
+          1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1/joint13 1/joint14
+          1/joint15 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1/joint13 1/joint16
+          1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint2/joint18/joint11 1/joint12 1/joint13 1/joint16
+          1/joint17 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint6
+        weight: 1
+      - path: nurbsCircle3/joint1/joint6/joint7 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint6/joint7 1/joint8 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint6/joint7 1/joint8 1/joint9 1
+        weight: 1
+      - path: nurbsCircle3/joint1/joint19
+        weight: 1
+      - path: nurbsCircle3/joint1/joint19/joint7
+        weight: 1
+      - path: nurbsCircle3/joint1/joint19/joint7/joint8
+        weight: 1
+      - path: nurbsCircle3/joint1/joint19/joint7/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 27
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -135,7 +238,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

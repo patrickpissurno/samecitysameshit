@@ -25,7 +25,10 @@ public class GameService : IGameService
         InputManager.onClickListener += OnClick;
 
         camObject = GameObject.Find(ElementType.MainCamera.ToString());
-        anim = playerObject.GetComponent<Animation>();
+
+        if(anim == null) {
+            anim = playerObject.GetComponent<Animation>();
+        }
     }
 
     public void MovePlayer()

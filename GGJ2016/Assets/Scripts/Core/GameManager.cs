@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         started = true;
+        if (getBean<FadeView>()) {
+            getBean<FadeView>().PlayReverse();
+        }
     }
 
 
