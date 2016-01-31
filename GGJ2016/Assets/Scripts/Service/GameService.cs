@@ -20,7 +20,7 @@ public class GameService : IGameService
     {
         this.gameView = gameView;
         player = new PlayerModel();
-        InputManager.onClickListener += OnClick;
+        InputManager.instance.onClickListener += OnClick;
 
         camObject = GameObject.Find(ElementType.MainCamera.ToString());
     }

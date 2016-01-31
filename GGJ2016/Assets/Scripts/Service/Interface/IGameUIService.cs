@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public interface IGameUIService {
     bool ClockTick { get; }
@@ -32,7 +33,7 @@ public interface IGameUIService {
 
     void HideUberUI(Vector3 cameraPosition);
 
-    void SetupRebuFillAmount(GameObject gameObject);
+    void SetupRebuFillAmount(Image image);
 
     void CallToRebu(float fillAmount);
 }

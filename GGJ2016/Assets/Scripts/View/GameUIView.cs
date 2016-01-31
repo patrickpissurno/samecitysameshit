@@ -13,9 +13,11 @@ public class GameUIView : MonoBehaviour {
     private int BossSpriteIndex = 0;
     public LightView LightView;
     public SpawnerView SpawnerView;
+    public Image RebuBG;
+    public Image RebuImage;
 
 	void Start () {
-        Service = new GameUIService();
+        Service = new GameUIService(RebuBG);
         if(LightView != null)
             LightView.Service = Service;
         if (SpawnerView != null)
@@ -77,7 +79,7 @@ public class GameUIView : MonoBehaviour {
     
     public void SetupRebuFillAmount()
     {
-        Service.SetupRebuFillAmount(GameObject.Find(ElementType.Rebu.ToString()));
+        Service.SetupRebuFillAmount(RebuImage);
     }
 
     void LoadBossSprites()

@@ -10,12 +10,7 @@ public class RebuModel {
         this.canRunAnimation = canRunAnimation;
     }
 
-    public RebuModel()
-    {
-
-    }
-
-    public void setRunAnimation(bool canRunAnimation)
+    public void SetRunAnimation(bool canRunAnimation)
     {
         this.canRunAnimation = canRunAnimation;
     }

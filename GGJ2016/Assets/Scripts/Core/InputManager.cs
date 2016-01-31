@@ -4,17 +4,18 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour
 {
+    public static InputManager instance = null;
 
-    public static Action<GameObject, Vector3> onClickListener;
+    public Action<GameObject, Vector3> onClickListener;
 
-    public static Action<Vector3> onCameraClickPressedListener;
+    public Action<Vector3> onCameraClickPressedListener;
 
-    public static Action<Vector3> onCameraClickUpListener;
+    public Action<Vector3> onCameraClickUpListener;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-
+        instance = this;
     }
 
     // Update is called once per frame

@@ -12,7 +12,7 @@ public class GameUIService : IGameUIService
     private bool clockTick = false;
     private bool updateTick = false;
 
-    private GameObject RebuBG;
+    private Image RebuBG;
     private RebuModel RebuObject;
 
     private float timerDelay;
@@ -35,7 +35,7 @@ public class GameUIService : IGameUIService
         }
     }
 
-    public GameUIService()
+    public GameUIService(Image RebuBG)
     {
         if (TimeModel == null)
             TimeModel = new TimeModel();
@@ -49,12 +49,12 @@ public class GameUIService : IGameUIService
             PlayerStatsModel = new PlayerStatsModel();
 
         RebuObject = new RebuModel(false);
+        this.RebuBG = RebuBG;
 
-        InputManager.onCameraClickPressedListener += ShowUberUI;
-        InputManager.onCameraClickUpListener += HideUberUI;
+        InputManager.instance.onCameraClickPressedListener += ShowUberUI;
+        InputManager.instance.onCameraClickUpListener += HideUberUI;
 
-        RebuBG = GameObject.Find(ElementType.RebuBG.ToString());
-        RebuBG.SetActive(false);
+        RebuBG.gameObject.SetActive(false);
     }
 
     public void RestartGame()
@@ -131,10 +131,9 @@ public class GameUIService : IGameUIService
     {
         if (RebuObject != null)
         {
-            RebuObject.setRunAnimation(true);
-
-            if (delayToAnim())
-                RebuBG.SetActive(true);
+            RebuObject.SetRunAnimation(true);
+            if (DelayToAnim())
+                RebuBG.gameObject.SetActive(true);
         }
     }
 
@@ -142,21 +141,19 @@ public class GameUIService : IGameUIService
     {
         if (RebuObject != null)
         {
-            RebuObject.setRunAnimation(false);
-            RebuBG.SetActive(false);
-            clearDelay();
+            RebuObject.SetRunAnimation(false);
+            RebuBG.gameObject.SetActive(false);
+            ClearDelay();
         }
     }
 
-    public void SetupRebuFillAmount(GameObject gameObject)
+    public void SetupRebuFillAmount(Image image)
     {
         float speed = Time.deltaTime * 0.5f;
 
-        gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning() && delayToAnim()) ?
-            gameObject.GetComponent<Image>().fillAmount + speed
-            : 0;
+        image.fillAmount = (RebuObject.isRunning() && DelayToAnim()) ? image.fillAmount + speed : 0;
 
-        CallToRebu(gameObject.GetComponent<Image>().fillAmount);
+        CallToRebu(image.fillAmount);
     }
 
     public void CallToRebu(float fillAmount)
@@ -171,10 +168,8 @@ public class GameUIService : IGameUIService
                 {
                     TransportEntityView v = o.GetComponent<TransportEntityView>();
                     v.Speed = 3 + Random.Range(0f, 1f);
-                    Debug.Log("Created Uber");
                 }
             }
-            Debug.Log("Uber Click");
         }
     }
 
@@ -210,7 +205,7 @@ public class GameUIService : IGameUIService
         }
     }
 
-    bool delayToAnim()
+    bool DelayToAnim()
     {
         if (timerDelay < 2)
             timerDelay += Time.deltaTime * 1f;
@@ -219,7 +214,7 @@ public class GameUIService : IGameUIService
 
     }
 
-    private void clearDelay()
+    private void ClearDelay()
     {
         timerDelay = 0;
     }
