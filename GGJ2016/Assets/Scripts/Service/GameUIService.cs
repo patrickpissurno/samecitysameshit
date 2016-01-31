@@ -136,8 +136,6 @@ public class GameUIService : IGameUIService
         gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning()) ?
             gameObject.GetComponent<Image>().fillAmount + speed
             : 0;
-
-        //Debug.Log(gameObject.GetComponent<Image>().fillAmount);
     }
 
     public void CallToRebu(float fillAmount)
