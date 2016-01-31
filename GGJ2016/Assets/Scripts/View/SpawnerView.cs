@@ -8,7 +8,7 @@ public class SpawnerView : MonoBehaviour {
     public Transform SpawnPositionLeft;
     public Transform SpawnPositionRight;
 
-    public GameObject Car;
+    public GameObject[] Car;
     public GameObject Bus;
     public GameObject Taxi;
     public GameObject Uber;
@@ -46,7 +46,7 @@ public class SpawnerView : MonoBehaviour {
         BusPool = new List<GameObject>();
         TaxiPool = new List<GameObject>();
         UberPool = new List<GameObject>();
-        //TrainPool = new List<GameObject>();
+        TrainPool = new List<GameObject>();
     }
 
     public void DelayedStart()
@@ -55,7 +55,7 @@ public class SpawnerView : MonoBehaviour {
         SetupPool(EntityType.Bus, BusPool, POOL_BUS_AMOUNT);
         SetupPool(EntityType.Taxi, TaxiPool, POOL_TAXI_AMOUNT);
         SetupPool(EntityType.Uber, UberPool, POOL_UBER_AMOUNT);
-        //SetupPool(EntityType.Train, TrainPool, POOL_TRAIN_AMOUNT);
+        SetupPool(EntityType.Train, TrainPool, POOL_TRAIN_AMOUNT);
         StartCoroutine(SpawnEntities());
     }
 
@@ -114,6 +114,8 @@ public class SpawnerView : MonoBehaviour {
                 o.SetActive(false);
                 o.transform.SetParent(holder.transform);
                 Pool.Add(o);
+                if(Type == EntityType.Car)
+                    prefab = GetPrefabByType(Type);
             }
         }
     }
@@ -176,7 +178,7 @@ public class SpawnerView : MonoBehaviour {
         switch (Type)
         {
             case EntityType.Car:
-                prefab = Car;
+                prefab = Car[Random.Range(0, Car.Length - 1)];
                 break;
             case EntityType.Bus:
                 prefab = Bus;
