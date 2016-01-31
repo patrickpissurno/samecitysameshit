@@ -19,6 +19,8 @@ public interface IGameUIService {
 
     string GetMinute();
 
+    int GetTotalMinutes();
+
     int GetDay();
 
     float GetHappiness();

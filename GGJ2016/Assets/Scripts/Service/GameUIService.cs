@@ -6,7 +6,7 @@ public class GameUIService : IGameUIService
 {
     private static TimeModel TimeModel;
     private static PlayerStatsModel PlayerStatsModel;
-    private const float TIMER_SPEED = .75f;
+    private const float TIMER_SPEED = 8f;//.75f;
 
     private float timer = 0;
     private bool clockTick = false;
@@ -101,6 +101,11 @@ public class GameUIService : IGameUIService
     {
         string result = TimeModel.Minute.ToString();
         return result.Length == 1 ? "0" + result : result;
+    }
+
+    public int GetTotalMinutes()
+    {
+        return TimeModel.TotalMinutes;
     }
 
     public int GetDay()

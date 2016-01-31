@@ -11,9 +11,11 @@ public class GameUIView : MonoBehaviour {
     private IGameUIService Service;
     private static Sprite[] BossSprites;
     private int BossSpriteIndex = 0;
+    public LightView LightView;
 
 	void Start () {
         Service = new GameUIService();
+        LightView.Service = Service;
         LoadBossSprites();
         UpdateMonthView();
 	}
