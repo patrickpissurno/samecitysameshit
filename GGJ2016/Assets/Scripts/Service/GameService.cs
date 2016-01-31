@@ -33,46 +33,36 @@ public class GameService : IGameService
         }
     }
 
-    public void MovePlayer()
-    {
-        if (currentGameObject != null)
-        {
-            if (currentGameObject.name.Equals(TagType.Limit))
-            {
-                LoadPlayer();
-                Vector3 forward = player.getTargetPosition() - playerObject.transform.position;
-                forward.y = 0;
-
-                if (Vector3.Distance(Vector3.zero, forward) > 0.2f && player.getTargetPosition() != Vector3.zero)
-                {
-                    Quaternion direction = Quaternion.LookRotation(forward);
-                    playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, direction, speed * 4 * Time.deltaTime);
-                }
-
-                if (Vector3.Distance(Vector3.zero, forward) > 0.1f)
-                {
-                    if (!anim.IsPlaying("Walk"))
-                    {
-                        anim.CrossFade("Walk", 0.3f);
-                    }
-                }
-                else {
-                    if (!anim.IsPlaying("Idle"))
-                    {
-                        anim.CrossFade("Idle", 0.3f);
-                    }
-                }
-
-                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-                SetFixedPosition();
-            }
-        }
-    }
-
     private void LoadPlayer()
     {
         if (playerObject == null)
             playerObject = GameObject.Find(ElementType.Player.ToString());
+    }
+
+    private void RotateAndAnim()
+    {
+        Vector3 forward = player.getTargetPosition() - playerObject.transform.position;
+        forward.y = 0;
+
+        if (Vector3.Distance(Vector3.zero, forward) > 0.2f && player.getTargetPosition() != Vector3.zero)
+        {
+            Quaternion direction = Quaternion.LookRotation(forward);
+            playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, direction, speed * 4 * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(Vector3.zero, forward) > 0.1f)
+        {
+            if (!anim.IsPlaying("Walk"))
+            {
+                anim.CrossFade("Walk", 0.3f);
+            }
+        }
+        else {
+            if (!anim.IsPlaying("Idle"))
+            {
+                anim.CrossFade("Idle", 0.3f);
+            }
+        }
     }
 
     private void SetFixedPosition()
@@ -88,20 +78,18 @@ public class GameService : IGameService
         switch (gameObject.tag)
         {
             case TagType.BusStop:
-                MovePlayerToBusStop();
+                player.SetTag(gameObject.tag);
+                MovePlayer();
                 RunAnimCamToBusStop();
                 player.SetTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
-
-                Debug.Log(gameObject.tag);
                 break;
 
 
             case TagType.Limit:
+                player.SetTag(gameObject.tag);
                 MovePlayer();
                 RunAnimBusStopToDefault();
                 player.SetTargetPosition(clickPosition);
-
-                Debug.Log(gameObject.tag);
                 break;
 
             case TagType.Bus:
@@ -126,13 +114,18 @@ public class GameService : IGameService
         player.SetCurrentPosition(playerObject.transform.position);
     }
 
-    public void MovePlayerToBusStop()
+    public void MovePlayer()
     {
         if (currentGameObject != null)
         {
-            LoadPlayer();
-            playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-            SetFixedPosition();
+            if (currentGameObject.tag == player.getTag()) {
+                LoadPlayer();
+                RotateAndAnim();
+
+                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
+                SetFixedPosition();
+            }
+            return;
         }
     }
 
