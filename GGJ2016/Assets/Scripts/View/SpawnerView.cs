@@ -8,6 +8,9 @@ public class SpawnerView : MonoBehaviour {
     public Transform SpawnPositionLeft;
     public Transform SpawnPositionRight;
 
+    public Transform SpawnTrainLeft;
+    public Transform SpawnTrainRight;
+
     public GameObject[] Car;
     public GameObject Bus;
     public GameObject Taxi;
@@ -18,12 +21,14 @@ public class SpawnerView : MonoBehaviour {
     private const int POOL_BUS_AMOUNT = 1;
     private const int POOL_TAXI_AMOUNT = 2;
     private const int POOL_UBER_AMOUNT = 1;
-    private const int POOL_TRAIN_AMOUNT = 2;
+    private const int POOL_TRAIN_AMOUNT = 1;
 
+    //The sum of the bellow chances must be equal to 1
     private const float CAR_SPAWN_CHANCE = .7f;
     private const float BUS_SPAWN_CHANCE = .1f;
     private const float TAXI_SPAWN_CHANCE = .2f;
-    private const float TRAIN_SPAWN_CHANCE = .1f;
+    //This chance is independant
+    private const float TRAIN_SPAWN_CHANCE = .4f;
 
     public List<GameObject> CarPool;
     public List<GameObject> BusPool;
@@ -68,23 +73,40 @@ public class SpawnerView : MonoBehaviour {
             tries++;
             spawned = SpawnRandomEntity();
         }
+
+        SpawnTrain();
         yield return new WaitForSeconds(2f + Random.Range(-1f, 1f));
         StartCoroutine(SpawnEntities());
+    }
+
+    void SpawnTrain()
+    {
+        float val = Random.Range(0f, 1f);
+        if (val < TRAIN_SPAWN_CHANCE)
+        {
+            Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnTrainLeft : SpawnTrainRight;
+            GameObject o = PoolInstantiate(EntityType.Train, Direction.position, Direction.rotation);
+            if (o != null)
+            {
+                TransportEntityView v = o.GetComponent<TransportEntityView>();
+                v.Speed = 4 + Random.Range(3f, 5f);
+            }
+        }
     }
 
     bool SpawnRandomEntity()
     {
         float val = Random.Range(0f, 1f);
-        EntityType Type;
-        Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnPositionLeft : SpawnPositionRight;
+        EntityType Type = EntityType.Car;
         if (val < CAR_SPAWN_CHANCE)
             Type = EntityType.Car;
         else if (val < CAR_SPAWN_CHANCE + BUS_SPAWN_CHANCE)
             Type = EntityType.Bus;
         else if (val < CAR_SPAWN_CHANCE + BUS_SPAWN_CHANCE + TAXI_SPAWN_CHANCE)
             Type = EntityType.Taxi;
-        else
-            Type = EntityType.Car;
+
+        Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnPositionLeft : SpawnPositionRight;
+
         GameObject o = PoolInstantiate(Type, Direction.position, Direction.rotation);
         if (o != null)
         {
