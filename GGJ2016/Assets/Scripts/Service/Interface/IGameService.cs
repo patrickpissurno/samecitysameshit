@@ -7,8 +7,6 @@ public interface IGameService
 
     void MovePlayer();
 
-    void MovePlayerToBusStop();
-
     void RunAnimCamToBusStop();
 
     void RunAnimBusStopToDefault();

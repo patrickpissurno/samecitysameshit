@@ -33,21 +33,6 @@ public class GameService : IGameService
         }
     }
 
-    public void MovePlayer()
-    {
-        Debug.Log("MovePlayer");
-        if (currentGameObject != null)
-        {
-            Debug.Log("currentGameObject != null");
-
-            LoadPlayer();
-            RotateAndAnim();
-
-            playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-            SetFixedPosition();
-        }
-    }
-
     private void LoadPlayer()
     {
         if (playerObject == null)
@@ -93,13 +78,15 @@ public class GameService : IGameService
         switch (gameObject.tag)
         {
             case TagType.BusStop:
-                MovePlayerToBusStop();
+                player.SetTag(gameObject.tag);
+                MovePlayer();
                 RunAnimCamToBusStop();
                 player.SetTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
                 break;
 
 
             case TagType.Limit:
+                player.SetTag(gameObject.tag);
                 MovePlayer();
                 RunAnimBusStopToDefault();
                 player.SetTargetPosition(clickPosition);
@@ -127,14 +114,18 @@ public class GameService : IGameService
         player.SetCurrentPosition(playerObject.transform.position);
     }
 
-    public void MovePlayerToBusStop()
+    public void MovePlayer()
     {
         if (currentGameObject != null)
         {
-            LoadPlayer();
-            RotateAndAnim();
-            playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-            SetFixedPosition();
+            if (currentGameObject.tag == player.getTag()) {
+                LoadPlayer();
+                RotateAndAnim();
+
+                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
+                SetFixedPosition();
+            }
+            return;
         }
     }
 
