@@ -11,6 +11,11 @@ public class MovePathModel {
     public bool useRotation;
 
     public string playAnimation;
+    public bool useCrossfade = true;
+    
+    public Transform targetForStop;
+    public bool stopOnEnd;
+
     public string changeSceneOnEnd;
 
     public GameObject target;
