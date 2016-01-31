@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TimeModel {
     private int hour = 5;
-    private int minute = 0;
+    private int minute = 30;
     private int day = 1;
 
     private readonly string[] months = new string[] {

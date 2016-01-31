@@ -27,7 +27,7 @@ public class SpawnElementsService {
     }
 
     public void WaitAndSearch() {
-        float wait = UnityEngine.Random.Range(0.5f, 1.5f);
+        float wait = UnityEngine.Random.Range(1.0f, 3f);
         GameManager.WaitTime(wait, CreateNewElement);
     }
 

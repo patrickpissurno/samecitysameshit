@@ -10,12 +10,19 @@ public interface IGameUIService {
 
     void GoToCredits();
 
+    void GoToGameOver();
+
     void UpdateTimer(float deltaTime);
+
+    void UpdateGame();
+
     string GetHour();
 
     string GetMinute();
 
     int GetDay();
+
+    float GetHappiness();
 
     string GetRandomMonth();
 

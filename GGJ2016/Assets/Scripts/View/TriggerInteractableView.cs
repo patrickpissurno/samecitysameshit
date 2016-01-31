@@ -12,7 +12,7 @@ public class TriggerInteractableView : MonoBehaviour {
         if (col.tag == tag && col.name != name) {
             if (onTriggerEnter != null) {
                 onTriggerEnter(col.gameObject);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
