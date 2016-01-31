@@ -6,10 +6,72 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Casa01
+    100004: Casa02
+    100006: Casa03
+    100008: Casa04
+    100010: CAsa05
+    100012: Casa06
+    100014: Casa07
+    100016: Cena01
+    100018: Montanha
+    100020: Passarela
+    100022: Ponto
+    100024: Postes
+    100026: Rua
     400000: //RootNode
+    400002: Casa01
+    400004: Casa02
+    400006: Casa03
+    400008: Casa04
+    400010: CAsa05
+    400012: Casa06
+    400014: Casa07
+    400016: Cena01
+    400018: Montanha
+    400020: Passarela
+    400022: Ponto
+    400024: Postes
+    400026: Rua
     2300000: //RootNode
+    2300002: Casa01
+    2300004: Casa02
+    2300006: Casa03
+    2300008: Casa04
+    2300010: CAsa05
+    2300012: Casa06
+    2300014: Casa07
+    2300016: Montanha
+    2300018: Passarela
+    2300020: Ponto
+    2300022: Postes
+    2300024: Rua
     3300000: //RootNode
+    3300002: Casa01
+    3300004: Casa02
+    3300006: Casa03
+    3300008: Casa04
+    3300010: CAsa05
+    3300012: Casa06
+    3300014: Casa07
+    3300016: Montanha
+    3300018: Passarela
+    3300020: Ponto
+    3300022: Postes
+    3300024: Rua
     4300000: Cena01
+    4300002: Montanha
+    4300004: Rua
+    4300006: Passarela
+    4300008: Postes
+    4300010: Ponto
+    4300012: Casa01
+    4300014: Casa02
+    4300016: Casa03
+    4300018: Casa04
+    4300020: CAsa05
+    4300022: Casa06
+    4300024: Casa07
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +101,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
