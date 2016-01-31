@@ -7,7 +7,7 @@ public class GameUIService : IGameUIService
     private static TimeModel TimeModel;
     private static PlayerStatsModel PlayerStatsModel;
     public static GameUIService UIService;
-    private const float TIMER_SPEED = 8f;//.75f;
+    private const float TIMER_SPEED = 18f;//.75f;
 
     private float timer = 0;
     private bool clockTick = false;
@@ -62,7 +62,7 @@ public class GameUIService : IGameUIService
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneType.Game.ToString());
+        GameManager.getInstance().ChangeScene("Game");
     }
 
     public void GoToMainMenu()
@@ -77,7 +77,7 @@ public class GameUIService : IGameUIService
 
     public void GoToGameOver()
     {
-        GoToMainMenu();
+        GameManager.getInstance().ChangeScene("Cena_Fired");
     }
 
     public void UpdateTimer(float deltaTime)
