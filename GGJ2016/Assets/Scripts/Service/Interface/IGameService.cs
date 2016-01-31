@@ -10,4 +10,6 @@ public interface IGameService
     void RunAnimCamZoomInToBusStop();
 
     void RunAnimCamZoomOutToBusStop();
+
+    void GoWalk();
 }
