@@ -1,12 +1,17 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class GameUIService : IGameUIService
 {
     private TimeModel Model;
+    private RebuModel RebuObject;
     private const float TIMER_SPEED = .25f;
     private float timer = 0;
     private bool clockTick = false;
+
+    private GameObject RebuBG;
 
     public bool ClockTick
     {
@@ -19,7 +24,15 @@ public class GameUIService : IGameUIService
     public GameUIService()
     {
         Model = new TimeModel();
+        RebuObject = new RebuModel(false);
+
+        InputManager.onCameraClickPressedListener += ShowUberUI;
+        InputManager.onCameraClickUpListener += HideUberUI;
+
+        RebuBG = GameObject.Find(ElementType.RebuBG.ToString());
+        RebuBG.SetActive(false);
     }
+
     public void RestartGame()
     {
         SceneManager.LoadScene("Game");
@@ -75,6 +88,43 @@ public class GameUIService : IGameUIService
 
     public string GetRandomMonth()
     {
-        return Model.Months[Random.Range(0, 11)];
+        return Model.Months[UnityEngine.Random.Range(0, 11)];
+    }
+
+    public void ShowUberUI(Vector3 cameraPosition)
+    {
+        if (RebuObject != null)
+        {
+            RebuObject.setRunAnimation(true);
+            RebuBG.SetActive(true);
+        }
+    }
+
+    public void HideUberUI(Vector3 cameraPosition)
+    {
+        if (RebuObject != null)
+        {
+            RebuObject.setRunAnimation(false);
+            RebuBG.SetActive(false);
+        }
+    }
+
+    public void SetupRebuFillAmount(GameObject gameObject)
+    {
+        float speed = Time.deltaTime * 0.5f;
+
+        gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning()) ?
+            gameObject.GetComponent<Image>().fillAmount + speed
+            : 0;
+
+        Debug.Log(gameObject.GetComponent<Image>().fillAmount);
+    }
+
+    public void callToRebu(float fillAmount)
+    {
+        if (fillAmount >= 1)
+        {
+            //call to rebu
+        }
     }
 }
