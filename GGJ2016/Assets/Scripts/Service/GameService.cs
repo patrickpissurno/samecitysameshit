@@ -39,12 +39,15 @@ public class GameService : IGameService
 
     private void setFixedPosition()
     {
-        playerObject.transform.position = new Vector3(playerObject.transform.position.x, 0.7f, playerObject.transform.position.z);
+        playerObject.transform.position = new Vector3(playerObject.transform.position.x, 0.085f, playerObject.transform.position.z);
     }
 
     void OnClick(GameObject gameObject, Vector3 clickPosition)
     {
         currentGameObject = gameObject;
+
+
+        playerObject.transform.LookAt(new Vector3(clickPosition.x, playerObject.transform.position.y, playerObject.transform.position.z));
 
         switch (gameObject.tag)
         {
@@ -65,11 +68,28 @@ public class GameService : IGameService
                 Debug.Log(gameObject.tag);
                 break;
 
+            case TagType.Bus:
+
+                break;
+
+            case TagType.Taxi:
+
+                break;
+
+            case TagType.Rebu:
+
+                break;
+
+            case TagType.Garage:
+                RunAnimOpenGarage(gameObject);
+                break;
+
             default:
                 break;
         }
 
 
+        Debug.Log(gameObject.tag + " name: " + gameObject.name);
         player.setCurrentPosition(playerObject.transform.position);
     }
 
@@ -91,4 +111,14 @@ public class GameService : IGameService
     {
         camObject.GetComponent<Animator>().SetBool("canZoom", false);
     }
+
+    public void RunAnimOpenGarage(GameObject gameobject)
+    {
+        gameobject.GetComponent<Animator>().SetBool("canOpen", true);
+    }
+
+    //public void RunAnimCloseGarage()
+    //{
+    //    GameObject.Find(TagType.Garage.ToString()).GetComponent<Animator>().SetBool("canOpen", false);
+    //}
 }
