@@ -14,7 +14,10 @@ public class TransportEntityView : MonoBehaviour {
 
     void Update()
     {
-        transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+        bool Found = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), 5);
+        float breakMulti = (Found ? .3f : 1f);
+        //Debug.DrawLine(transform.position, transform.position + transform.TransformDirection(Vector3.forward) * 5, Found ? Color.red : Color.white);
+        transform.Translate(Vector3.forward * Speed * breakMulti * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)

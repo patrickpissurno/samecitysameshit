@@ -75,6 +75,8 @@ public class GameService : IGameService
     {
         currentGameObject = gameObject;
 
+        initRoutine(gameObject.tag);
+
         switch (gameObject.tag)
         {
             case TagType.BusStop:
@@ -105,6 +107,16 @@ public class GameService : IGameService
 
             case TagType.Rebu:
 
+                break;
+
+            case TagType.Bike:
+                break;
+
+            case TagType.Walk:
+                player.SetTag(gameObject.tag);
+
+                MovePlayer();
+                player.SetTargetPosition(new Vector3 (20.81f, player.getCurrentPosition().y, 14.5f));
                 break;
 
             case TagType.Garage:
@@ -242,9 +254,43 @@ public class GameService : IGameService
         }
     }
 
-    private void initRoutine()
+    private void initRoutine(string tag)
     {
-        
+        SceneRoutineModel sceneRoutine = new SceneRoutineModel();
+        switch (tag)
+        {
+            case TagType.Walk:
+                if (player.getCurrentPosition().x <= -1.5f)
+                Application.LoadLevel(sceneRoutine.walk[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Taxi:
+                Application.LoadLevel(sceneRoutine.taxi[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Rebu:
+                //Application.LoadLevel(sceneRoutine.[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Bus:
+                Application.LoadLevel(sceneRoutine.bus[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Bike:
+                Application.LoadLevel(sceneRoutine.bike[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Train:
+                Application.LoadLevel(sceneRoutine.train[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            case TagType.Car:
+                Application.LoadLevel(sceneRoutine.car[UnityEngine.Random.Range(0, 3)]);
+                break;
+
+            default:
+                break;
+        }
     }
 
     //public void RunAnimCloseGarage()

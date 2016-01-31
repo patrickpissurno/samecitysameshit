@@ -10,4 +10,6 @@ public class TagType {
     public const string Rebu = "Rebu";
     public const string Train = "Train";
     public const string Garage = "Garage";
+    public const string Bike = "Bike";
+    public const string Walk = "Walk";
 }
