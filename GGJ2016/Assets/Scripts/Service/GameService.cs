@@ -17,6 +17,8 @@ public class GameService : IGameService
     private GameObject camObject;
     private Animation anim;
 
+    private string currentTag;
+
     public void SetupGameView(GameView gameView)
     {
         LoadPlayer();
@@ -74,6 +76,7 @@ public class GameService : IGameService
     void OnClick(GameObject gameObject, Vector3 clickPosition)
     {
         currentGameObject = gameObject;
+        currentTag = gameObject.tag;
 
         initRoutine(gameObject.tag);
 
@@ -116,7 +119,7 @@ public class GameService : IGameService
                 player.SetTag(gameObject.tag);
 
                 MovePlayer();
-                player.SetTargetPosition(new Vector3 (20.81f, player.getCurrentPosition().y, 14.5f));
+                player.SetTargetPosition(new Vector3(20.81f, player.getCurrentPosition().y, 14.5f));
                 break;
 
             case TagType.Garage:
@@ -213,8 +216,6 @@ public class GameService : IGameService
         camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutStopBus);
     }
 
-
-
     private void HandleLimitAnim()
     {
         switch (player.getTag())
@@ -254,38 +255,48 @@ public class GameService : IGameService
         }
     }
 
+    public void GoWalk()
+    {
+        if (player.getTag() == TagType.Walk)
+        {
+            if (playerObject.transform.position.x >= 15)
+            {
+                GameManager.getInstance().ChangeScene(new SceneRoutineModel().walk[UnityEngine.Random.Range(0, 3)]);
+            }
+        }
+
+    }
+
     private void initRoutine(string tag)
     {
         SceneRoutineModel sceneRoutine = new SceneRoutineModel();
         switch (tag)
         {
             case TagType.Walk:
-                if (player.getCurrentPosition().x <= -1.5f)
-                Application.LoadLevel(sceneRoutine.walk[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Taxi:
-                Application.LoadLevel(sceneRoutine.taxi[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.taxi[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Rebu:
-                //Application.LoadLevel(sceneRoutine.[UnityEngine.Random.Range(0, 3)]);
+                //GameManager.getInstance().ChangeScene(sceneRoutine.walk[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Bus:
-                Application.LoadLevel(sceneRoutine.bus[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.bus[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Bike:
-                Application.LoadLevel(sceneRoutine.bike[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.bike[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Train:
-                Application.LoadLevel(sceneRoutine.train[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.train[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             case TagType.Car:
-                Application.LoadLevel(sceneRoutine.car[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.car[UnityEngine.Random.Range(0, 3)]);
                 break;
 
             default:
