@@ -287,6 +287,7 @@ public class GameService : IGameService
 
             case TagType.Taxi:
                 GameManager.getInstance().ChangeScene(sceneRoutine.taxi[UnityEngine.Random.Range(0, 3)]);
+                //UIS
                 break;
 
             case TagType.Rebu:
