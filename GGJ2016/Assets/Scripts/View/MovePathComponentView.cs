@@ -65,17 +65,23 @@ public class MovePathComponentView : MonoBehaviour {
     }
 
     private void EndCalls() {
+
+        if (instruction.stopOnEnd) {
+            instruction.targetForStop.GetComponent<Animation>().Stop();
+        }
+
         if (!string.IsNullOrEmpty(instruction.callMethodOnEnd)) {
             instruction.target.SendMessage(instruction.callMethodOnEnd);
         }
         if (!string.IsNullOrEmpty(instruction.changeSceneOnEnd)) {
-            SceneManager.LoadScene(instruction.changeSceneOnEnd);
+            GameManager.getInstance().ChangeScene(instruction.changeSceneOnEnd);
         } else {
             BeginInstructions();
         }
     }
     private void Reset() {
         pathCount = 0;
+        
         move = false;
     }
 
@@ -85,7 +91,11 @@ public class MovePathComponentView : MonoBehaviour {
                 anim = GetComponent<Animation>();
             }
 
-            anim.CrossFade(instruction.playAnimation, 0.3f);
+            if (instruction.useCrossfade) {
+                anim.CrossFade(instruction.playAnimation, 0.3f);
+            } else {
+                anim.Play(instruction.playAnimation);
+            }
         }
 
         if (instruction.paths != null && instruction.paths.Length >= 1) {

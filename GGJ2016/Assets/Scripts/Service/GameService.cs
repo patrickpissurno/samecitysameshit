@@ -80,20 +80,23 @@ public class GameService : IGameService
             case TagType.BusStop:
                 player.SetTag(gameObject.tag);
                 MovePlayer();
-                RunAnimCamToBusStop();
+
+                RunAnimCamZoomInToBusStop();
+                //MoveToAnotherPoint();
+
                 player.SetTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
                 break;
 
 
             case TagType.Limit:
+                HandleLimitAnim();
                 player.SetTag(gameObject.tag);
+
                 MovePlayer();
-                RunAnimBusStopToDefault();
                 player.SetTargetPosition(clickPosition);
                 break;
 
             case TagType.Bus:
-
                 break;
 
             case TagType.Taxi:
@@ -105,7 +108,14 @@ public class GameService : IGameService
                 break;
 
             case TagType.Garage:
+                MovePlayer();
+                player.SetTag(gameObject.tag);
+
                 RunAnimOpenGarage(gameObject);
+                RunAnimCamZoomInToGarage();
+                //MoveToAnotherPoint();
+
+                player.SetTargetPosition(new Vector3(-1.5f, player.getCurrentPosition().y, 14.5f));
                 break;
 
             default:
@@ -118,7 +128,8 @@ public class GameService : IGameService
     {
         if (currentGameObject != null)
         {
-            if (currentGameObject.tag == player.getTag()) {
+            if (currentGameObject.tag == player.getTag())
+            {
                 LoadPlayer();
                 RotateAndAnim();
 
@@ -129,19 +140,111 @@ public class GameService : IGameService
         }
     }
 
-    public void RunAnimCamToBusStop()
+    public void RunAnimCamZoomInToBusStop()
     {
         camObject.GetComponent<Animator>().SetBool("canZoom", true);
+        player.SetProximity(true);
+        Debug.Log("is near bus stop");
     }
 
-    public void RunAnimBusStopToDefault()
+    public void RunAnimCamZoomOutToBusStop()
     {
         camObject.GetComponent<Animator>().SetBool("canZoom", false);
+        player.SetProximity(false);
+        Debug.Log("is not near bus stop");
     }
 
     public void RunAnimOpenGarage(GameObject gameobject)
     {
         gameobject.GetComponent<Animator>().SetBool("canOpen", true);
+    }
+
+    public void RunAnimCamZoomInToGarage()
+    {
+        camObject.GetComponent<Animator>().SetBool("canZoomToGarage", true);
+        player.SetProximity(true);
+        Debug.Log("is near garage");
+    }
+
+    public void RunAnimCamZoomOutToGarage()
+    {
+        camObject.GetComponent<Animator>().SetBool("canZoomToGarage", false);
+        player.SetProximity(false);
+        Debug.Log("is not near garage");
+    }
+
+    public void RunAnimCamMoveFromStopBusToGarage(bool isNear)
+    {
+        if (isNear)
+        {
+            camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.ToGarage);
+            Debug.Log("RunAnimCamMoveFromStopBusToGarage");
+        }
+    }
+
+    public void RunAnimCamMoveFromGarageToStopBus(bool isNear)
+    {
+        if (isNear)
+        {
+            camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.ToStopBus);
+            Debug.Log("RunAnimCamMoveFromGarageToStopBus");
+        }
+    }
+
+    public void RunAnimCamOutGarage()
+    {
+        camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutGarage);
+    }
+
+    public void RunAnimCamOutStopBus()
+    {
+        camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutStopBus);
+    }
+
+
+
+    private void HandleLimitAnim()
+    {
+        switch (player.getTag())
+        {
+            case TagType.BusStop:
+                RunAnimCamZoomOutToBusStop();
+                break;
+
+            case TagType.Garage:
+                RunAnimCamZoomOutToGarage();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void MoveToAnotherPoint()
+    {
+        Debug.Log("MoveToAnotherPoint is near");
+        switch (player.getTag())
+        {
+            case TagType.BusStop:
+                RunAnimCamMoveFromStopBusToGarage(player.isNear());
+                break;
+
+            case TagType.Garage:
+                RunAnimCamMoveFromGarageToStopBus(player.isNear());
+                break;
+
+            case TagType.Limit:
+                RunAnimCamOutGarage();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void initRoutine()
+    {
+        
     }
 
     //public void RunAnimCloseGarage()

@@ -6,6 +6,7 @@ public class GameUIService : IGameUIService
 {
     private static TimeModel TimeModel;
     private static PlayerStatsModel PlayerStatsModel;
+    public static GameUIService UIService;
     private const float TIMER_SPEED = 8f;//.75f;
 
     private float timer = 0;
@@ -37,6 +38,7 @@ public class GameUIService : IGameUIService
 
     public GameUIService(Image RebuBG)
     {
+        UIService = this;
         if (TimeModel == null)
             TimeModel = new TimeModel();
         else
@@ -54,6 +56,7 @@ public class GameUIService : IGameUIService
         InputManager.instance.onCameraClickPressedListener += ShowUberUI;
         InputManager.instance.onCameraClickUpListener += HideUberUI;
 
+        if(RebuBG != null)
         RebuBG.gameObject.SetActive(false);
     }
 
