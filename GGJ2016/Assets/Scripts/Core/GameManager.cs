@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -31,7 +32,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void ChangeScene(string sceneName) {
+        if (getBean<FadeView>()) {
+            getBean<FadeView>().PlayForward();
+        }
 
+        GameManager.WaitTime(1, () => {
+            Application.LoadLevel(sceneName);
+        });
+    }
     public static T getBean<T>() where T : Component {
         return (T)getBean(typeof(T));
     }
