@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public interface IGameUIService {
     bool ClockTick { get; }
@@ -32,5 +31,5 @@ public interface IGameUIService {
 
     void SetupRebuFillAmount(GameObject gameObject);
 
-    void callToRebu(float fillAmount);
+    void CallToRebu(float fillAmount);
 }

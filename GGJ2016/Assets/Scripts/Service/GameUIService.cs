@@ -1,7 +1,6 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
+using UnityEngine.SceneManagement;
 
 public class GameUIService : IGameUIService
 {
@@ -27,14 +26,6 @@ public class GameUIService : IGameUIService
 
     public GameUIService()
     {
-        RebuObject = new RebuModel(false);
-
-        InputManager.onCameraClickPressedListener += ShowUberUI;
-        InputManager.onCameraClickUpListener += HideUberUI;
-
-        RebuBG = GameObject.Find(ElementType.RebuBG.ToString());
-        RebuBG.SetActive(false);
-
         if (TimeModel == null)
             TimeModel = new TimeModel();
         else
@@ -43,8 +34,16 @@ public class GameUIService : IGameUIService
             TimeModel.Minute = 30;
         }
 
-        if(PlayerStatsModel == null)
+        if (PlayerStatsModel == null)
             PlayerStatsModel = new PlayerStatsModel();
+
+        RebuObject = new RebuModel(false);
+
+        InputManager.onCameraClickPressedListener += ShowUberUI;
+        InputManager.onCameraClickUpListener += HideUberUI;
+
+        RebuBG = GameObject.Find(ElementType.RebuBG.ToString());
+        RebuBG.SetActive(false);
     }
 
     public void RestartGame()
@@ -138,10 +137,10 @@ public class GameUIService : IGameUIService
             gameObject.GetComponent<Image>().fillAmount + speed
             : 0;
 
-        Debug.Log(gameObject.GetComponent<Image>().fillAmount);
+        //Debug.Log(gameObject.GetComponent<Image>().fillAmount);
     }
 
-    public void callToRebu(float fillAmount)
+    public void CallToRebu(float fillAmount)
     {
         if (fillAmount >= 1)
         {
