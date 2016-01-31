@@ -55,5 +55,7 @@ public class FadeView : MonoBehaviour {
         Color c = fadePanel.color;
         c.a = value;
         fadePanel.color = c;
+        if (value <= 0)
+            gameObject.SetActive(false);
     }
 }
