@@ -17,6 +17,15 @@ public class GameUIService : IGameUIService
 
     private float timerDelay;
 
+    private SpawnerView spawnerView;
+    public SpawnerView SpawnerView
+    {
+        set
+        {
+            spawnerView = value;
+        }
+    }
+
 
     public bool ClockTick
     {
@@ -152,7 +161,13 @@ public class GameUIService : IGameUIService
     {
         if (fillAmount >= 1)
         {
-            //call to rebu
+            Transform dir = spawnerView.SpawnPositionRight;
+            GameObject o = spawnerView.PoolInstantiate(SpawnerView.EntityType.Uber, dir.position, dir.rotation);
+            if(o != null)
+            {
+                TransportEntityView v = o.GetComponent<TransportEntityView>();
+                v.Speed = 3 + Random.Range(0f, 1f);
+            }
         }
     }
 

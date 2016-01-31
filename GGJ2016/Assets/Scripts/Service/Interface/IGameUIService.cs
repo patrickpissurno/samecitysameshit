@@ -2,6 +2,7 @@
 
 public interface IGameUIService {
     bool ClockTick { get; }
+    SpawnerView SpawnerView { set; }
 
     void RestartGame();
 
