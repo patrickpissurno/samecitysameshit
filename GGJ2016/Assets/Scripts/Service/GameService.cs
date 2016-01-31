@@ -119,6 +119,7 @@ public class GameService : IGameService
                 player.SetTag(gameObject.tag);
 
                 MovePlayer();
+                MoveToAnotherPoint();
                 player.SetTargetPosition(new Vector3(20.81f, player.getCurrentPosition().y, 14.5f));
                 break;
 
@@ -216,6 +217,11 @@ public class GameService : IGameService
         camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutStopBus);
     }
 
+    public void RunAnimCamWalk()
+    {
+        camObject.GetComponent<Animator>().SetBool("canWalk",true);
+    }
+
     private void HandleLimitAnim()
     {
         switch (player.getTag())
@@ -238,6 +244,10 @@ public class GameService : IGameService
         Debug.Log("MoveToAnotherPoint is near");
         switch (player.getTag())
         {
+            case TagType.Walk:
+                RunAnimCamWalk();
+                break;
+
             case TagType.BusStop:
                 RunAnimCamMoveFromStopBusToGarage(player.isNear());
                 break;
