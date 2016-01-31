@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class GameUIService : IGameUIService
 {
-    private TimeModel Model;
-    private const float TIMER_SPEED = .25f;
+    private TimeModel TimeModel;
+    private PlayerStatsModel PlayerStatsModel;
+    private const float TIMER_SPEED = .75f;
     private float timer = 0;
     private bool clockTick = false;
 
@@ -18,7 +19,8 @@ public class GameUIService : IGameUIService
 
     public GameUIService()
     {
-        Model = new TimeModel();
+        TimeModel = new TimeModel();
+        PlayerStatsModel = new PlayerStatsModel();
     }
     public void RestartGame()
     {
@@ -42,39 +44,51 @@ public class GameUIService : IGameUIService
         if (timer > 1)
         {
             timer = 0;
-            Model.Minute++;
-            if (Model.Minute > 59)
+            TimeModel.Minute++;
+            if (TimeModel.Minute > 59)
             {
-                Model.Minute = 0;
-                Model.Hour++;
+                TimeModel.Minute = 0;
+                TimeModel.Hour++;
             }
-            if (Model.Hour > 23)
+            if (TimeModel.Hour > 23)
             {
-                Model.Hour = 0;
-                Model.Day++;
+                TimeModel.Hour = 0;
+                TimeModel.Day++;
             }
+            UpdateHapiness();
         }
     }
 
     public string GetHour()
     {
-        string result = Model.Hour.ToString();
+        string result = TimeModel.Hour.ToString();
         return result.Length == 1 ? "0" + result : result;
     }
 
     public string GetMinute()
     {
-        string result = Model.Minute.ToString();
+        string result = TimeModel.Minute.ToString();
         return result.Length == 1 ? "0" + result : result;
     }
 
     public int GetDay()
     {
-        return Model.Day;
+        return TimeModel.Day;
     }
 
     public string GetRandomMonth()
     {
-        return Model.Months[Random.Range(0, 11)];
+        return TimeModel.Months[Random.Range(0, 11)];
+    }
+
+    public float GetHappiness()
+    {
+        return PlayerStatsModel.Hapiness;
+    }
+
+    public void UpdateHapiness()
+    {
+        if (TimeModel.TotalMinutes == 7 * 60 + 30)
+            PlayerStatsModel.Hapiness -= .1f;
     }
 }

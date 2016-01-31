@@ -7,8 +7,10 @@ public interface IGameUIService {
     void GoToMainMenu();
     void GoToCredits();
     void UpdateTimer(float deltaTime);
+    void UpdateHapiness();
     string GetHour();
     string GetMinute();
     int GetDay();
+    float GetHappiness();
     string GetRandomMonth();
 }
