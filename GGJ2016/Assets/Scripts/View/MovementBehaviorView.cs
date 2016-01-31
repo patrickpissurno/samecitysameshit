@@ -9,6 +9,11 @@ public class MovementBehaviorView : IInteractableView {
     public float targetSpeed;
 
     private const float breakSpeed = 5f;
+    private TriggerInteractableView trigger = null;
+
+    public ObjectPoolService poolComponent;
+
+    private bool canDisable = false;
 
     public void Init(float bound, float speed) {
         target = new Vector3(bound, transform.position.y, transform.position.z);
@@ -16,15 +21,29 @@ public class MovementBehaviorView : IInteractableView {
         this.speed = speed;
         this.targetSpeed = speed;
 
-        TriggerInteractableView trigger = GetComponentInChildren<TriggerInteractableView>();
-        trigger.tag = "Vehicle";
+        if(trigger == false) {
+            trigger = GetComponentInChildren<TriggerInteractableView>();
+            trigger.tag = "Vehicle";
+            trigger.onTriggerEnter += VehicleInFront;
+        } else {
+            trigger.gameObject.SetActive(true);
+        }
+
         trigger.name = transform.name;
-        trigger.onTriggerEnter += VehicleInFront;
+
+        GameManager.WaitTime(2, () => {
+            canDisable = true;
+        });
     }
 	
 	void Update () {
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * speed);
         speed = Mathf.Lerp(speed, targetSpeed, Time.deltaTime * breakSpeed);
+
+        if (!GetComponent<Renderer>().isVisible && canDisable) {
+            canDisable = false;
+            poolComponent.SetActive(false);
+        }
 	}
 
     public void SetNewTargetPosition(Vector3 newTarget) {
@@ -35,14 +54,12 @@ public class MovementBehaviorView : IInteractableView {
         targetSpeed = newSpeed;
     }
 
-
     public override void OnClick() {
 
     }
 
     public void VehicleInFront(GameObject obj){
         SetNewSpeed(obj.GetComponent<MovementBehaviorView>().speed -0.01f);
-
     }
 
 }
