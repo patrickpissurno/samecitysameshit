@@ -22,6 +22,7 @@ public class GameUIView : MonoBehaviour {
     void Update()
     {
         Service.UpdateTimer(Time.deltaTime);
+        Service.UpdateGame();
         UpdateClockView();
         UpdateDayView();
         UpdateBossSprite();

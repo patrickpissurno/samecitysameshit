@@ -6,8 +6,9 @@ public interface IGameUIService {
     void RestartGame();
     void GoToMainMenu();
     void GoToCredits();
+    void GoToGameOver();
     void UpdateTimer(float deltaTime);
-    void UpdateHapiness();
+    void UpdateGame();
     string GetHour();
     string GetMinute();
     int GetDay();
