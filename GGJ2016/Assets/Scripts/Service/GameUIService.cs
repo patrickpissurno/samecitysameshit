@@ -80,6 +80,11 @@ public class GameUIService : IGameUIService
         GameManager.getInstance().ChangeScene("Cena_Fired");
     }
 
+    public void SetHapiness(float val)
+    {
+        PlayerStatsModel.Hapiness = val;
+    }
+
     public void UpdateTimer(float deltaTime)
     {
         timer += deltaTime * TIMER_SPEED;

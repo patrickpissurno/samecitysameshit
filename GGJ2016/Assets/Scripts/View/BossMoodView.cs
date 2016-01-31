@@ -33,6 +33,9 @@ public class BossMoodView : MonoBehaviour {
         else if (min > 9 * 60)
             frame = 2;
 
+        if(frame == 2)
+            UIService.SetHapiness(UIService.GetHappiness() - .1f);
+
         moodSprite.material.SetTexture("_MainTex", moods[frame]);
 
         string[] anims = new string[]{
