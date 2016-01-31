@@ -15,6 +15,8 @@ public class GameUIService : IGameUIService
     private GameObject RebuBG;
     private RebuModel RebuObject;
 
+    private float timerDelay;
+
 
     public bool ClockTick
     {
@@ -116,7 +118,9 @@ public class GameUIService : IGameUIService
         if (RebuObject != null)
         {
             RebuObject.setRunAnimation(true);
-            RebuBG.SetActive(true);
+
+            if (delayToAnim())
+                RebuBG.SetActive(true);
         }
     }
 
@@ -126,6 +130,7 @@ public class GameUIService : IGameUIService
         {
             RebuObject.setRunAnimation(false);
             RebuBG.SetActive(false);
+            clearDelay();
         }
     }
 
@@ -133,7 +138,7 @@ public class GameUIService : IGameUIService
     {
         float speed = Time.deltaTime * 0.5f;
 
-        gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning()) ?
+        gameObject.GetComponent<Image>().fillAmount = (RebuObject.isRunning() && delayToAnim()) ?
             gameObject.GetComponent<Image>().fillAmount + speed
             : 0;
     }
@@ -176,6 +181,20 @@ public class GameUIService : IGameUIService
             TimeModel.Day++;
             RestartGame();
         }
+    }
+
+    bool delayToAnim()
+    {
+        if (timerDelay < 2)
+            timerDelay += Time.deltaTime * 1f;
+
+        return timerDelay >= 2;
+
+    }
+
+    private void clearDelay()
+    {
+        timerDelay = 0;
     }
 
     public static void Reset()
