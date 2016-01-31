@@ -8,6 +8,8 @@ public class BossMoodView : MonoBehaviour {
     public Renderer moodSprite;
     private GameUIService UIService;
 
+    public bool isFiredScene;
+
     void Start() {
         UIService = GameUIService.UIService;
         if (UIService == null)
@@ -16,6 +18,12 @@ public class BossMoodView : MonoBehaviour {
 
     public void ShowFeedback() {
         moodSprite.gameObject.SetActive(true);
+        
+        if (isFiredScene) {
+            moodSprite.material.SetTexture("_MainTex", moods[2]);
+            GetComponent<Animation>().Play("Angry");
+            return;
+        }
 
         int min = UIService.GetTotalMinutes();
         int frame = 0;
