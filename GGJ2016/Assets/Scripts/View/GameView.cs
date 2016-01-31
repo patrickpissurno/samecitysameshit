@@ -12,6 +12,5 @@ public class GameView : MonoBehaviour {
 
 	void Update () {
         gameService.MovePlayer();
-        gameService.MovePlayerToBusStop();
 	}
 }
