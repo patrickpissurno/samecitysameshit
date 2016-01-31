@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: cce5ac267812fdb47ab5059bdcbfedef
+timeCreated: 1454228868
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Chefe
+    100004: joint1
+    100006: joint10
+    100008: joint11
+    100010: joint11 1
+    100012: joint12
+    100014: joint12 1
+    100016: joint13
+    100018: joint13 1
+    100020: joint14
+    100022: joint14 1
+    100024: joint15
+    100026: joint15 1
+    100028: joint16
+    100030: joint16 1
+    100032: joint17
+    100034: joint17 1
+    100036: joint18
+    100038: joint19
+    100040: joint2
+    100042: joint3
+    100044: joint4
+    100046: joint5
+    100048: joint6
+    100050: joint7
+    100052: joint7 1
+    100054: joint8
+    100056: joint8 1
+    100058: joint9
+    100060: joint9 1
+    100062: nurbsCircle1
+    100064: nurbsCircle2
+    100066: nurbsCircle3
+    400000: //RootNode
+    400002: Chefe
+    400004: joint1
+    400006: joint10
+    400008: joint11
+    400010: joint11 1
+    400012: joint12
+    400014: joint12 1
+    400016: joint13
+    400018: joint13 1
+    400020: joint14
+    400022: joint14 1
+    400024: joint15
+    400026: joint15 1
+    400028: joint16
+    400030: joint16 1
+    400032: joint17
+    400034: joint17 1
+    400036: joint18
+    400038: joint19
+    400040: joint2
+    400042: joint3
+    400044: joint4
+    400046: joint5
+    400048: joint6
+    400050: joint7
+    400052: joint7 1
+    400054: joint8
+    400056: joint8 1
+    400058: joint9
+    400060: joint9 1
+    400062: nurbsCircle1
+    400064: nurbsCircle2
+    400066: nurbsCircle3
+    4300000: Chefe
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Chefe
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
