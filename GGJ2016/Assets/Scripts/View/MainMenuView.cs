@@ -9,6 +9,7 @@ public class MainMenuView : MonoBehaviour {
 
     public void PlayClicked()
     {
+        print("FUCK");
         GameUIService.Reset();
         MainMenuService.OnPlayClick();
     }
