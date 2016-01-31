@@ -75,7 +75,7 @@ ModelImporter:
     400064: nurbsCircle1
     400066: nurbsCircle2
     400068: nurbsCircle3
-    7400000: Take 001
+    7400000: Normal
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -100,11 +100,11 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Normal
       takeName: Take 001
       firstFrame: 1
       lastFrame: 52
-      wrapMode: 1
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
