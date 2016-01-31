@@ -19,6 +19,8 @@ public class GameService : IGameService
 
     public void SetupGameView(GameView gameView)
     {
+        LoadPlayer();
+
         this.gameView = gameView;
         player = new PlayerModel();
         InputManager.instance.onClickListener += OnClick;
