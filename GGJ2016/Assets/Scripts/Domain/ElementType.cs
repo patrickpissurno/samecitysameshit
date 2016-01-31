@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum ElementType {
+public enum ElementType
+{
     Player,
     Taxi,
     Rebu,
     RebuBG,
     Bike,
     Metro,
-    Limit
+    MainCamera
 }
