@@ -13,5 +13,8 @@ public class GameView : MonoBehaviour {
 	void Update () {
         gameService.MovePlayer();
         gameService.GoWalk();
+
+        if (Input.GetKeyDown(KeyCode.F5))
+            Application.LoadLevel("Cena_Fired");
 	}
 }

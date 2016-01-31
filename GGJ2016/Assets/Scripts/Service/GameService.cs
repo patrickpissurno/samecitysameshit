@@ -18,6 +18,7 @@ public class GameService : IGameService
     private Animation anim;
 
     private string currentTag;
+    private GameUIService gameUIService;
 
     public void SetupGameView(GameView gameView)
     {
@@ -28,6 +29,7 @@ public class GameService : IGameService
         InputManager.instance.onClickListener += OnClick;
 
         camObject = GameObject.Find(ElementType.MainCamera.ToString());
+
 
         if (anim == null)
         {
@@ -280,14 +282,22 @@ public class GameService : IGameService
     private void initRoutine(string tag)
     {
         SceneRoutineModel sceneRoutine = new SceneRoutineModel();
+        int num = UnityEngine.Random.Range(0, 3);
+        TimeModel model = GameUIService.UIService.GetTimeModel();
+        int h, m;
         switch (tag)
         {
             case TagType.Walk:
                 break;
 
             case TagType.Taxi:
-                GameManager.getInstance().ChangeScene(sceneRoutine.taxi[UnityEngine.Random.Range(0, 3)]);
-                //UIS
+                GameManager.getInstance().ChangeScene(sceneRoutine.taxi[num]);
+                h = 1;
+                m = 10;
+                if (num != 2)
+                    m += 30;
+                model.Hour += h;
+                model.Minute += m;
                 break;
 
             case TagType.Rebu:
@@ -295,19 +305,43 @@ public class GameService : IGameService
                 break;
 
             case TagType.Bus:
-                GameManager.getInstance().ChangeScene(sceneRoutine.bus[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.bus[num]);
+                h = 1;
+                m = 30;
+                if (num != 2)
+                    m += 30;
+                model.Hour += h;
+                model.Minute += m;
                 break;
 
             case TagType.Bike:
-                GameManager.getInstance().ChangeScene(sceneRoutine.bike[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.bike[num]);
+                h = 2;
+                m = 0;
+                if (num != 2)
+                    m += 30;
+                model.Hour += h;
+                model.Minute += m;
                 break;
 
             case TagType.Train:
-                GameManager.getInstance().ChangeScene(sceneRoutine.train[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.train[num]);
+                h = 1;
+                m = 0;
+                if (num != 2)
+                    m += 30;
+                model.Hour += h;
+                model.Minute += m;
                 break;
 
             case TagType.Car:
-                GameManager.getInstance().ChangeScene(sceneRoutine.car[UnityEngine.Random.Range(0, 3)]);
+                GameManager.getInstance().ChangeScene(sceneRoutine.car[num]);
+                h = 1;
+                m = 0;
+                if (num != 2)
+                    h += 1;
+                model.Hour += h;
+                model.Minute += m;
                 break;
 
             default:

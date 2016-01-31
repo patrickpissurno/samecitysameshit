@@ -36,6 +36,11 @@ public class GameUIService : IGameUIService
         }
     }
 
+    public TimeModel GetTimeModel()
+    {
+        return TimeModel;
+    }
+
     public GameUIService(Image RebuBG)
     {
         UIService = this;
@@ -43,8 +48,8 @@ public class GameUIService : IGameUIService
             TimeModel = new TimeModel();
         else
         {
-            TimeModel.Hour = 5;
-            TimeModel.Minute = 30;
+            TimeModel.Hour = 6;
+            TimeModel.Minute = 20;
         }
 
         if (PlayerStatsModel == null)
