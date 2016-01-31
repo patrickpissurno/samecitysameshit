@@ -70,7 +70,7 @@ public class MovePathComponentView : MonoBehaviour {
             instruction.targetForStop.GetComponent<Animation>().Stop();
         }
 
-        if (!string.IsNullOrEmpty(instruction.callMethodOnEnd)) {
+        if (!string.IsNullOrEmpty(instruction.callMethodOnEnd) && instruction.target != null) {
             instruction.target.SendMessage(instruction.callMethodOnEnd);
         }
         if (!string.IsNullOrEmpty(instruction.changeSceneOnEnd)) {
