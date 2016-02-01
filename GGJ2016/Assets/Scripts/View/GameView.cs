@@ -3,15 +3,27 @@ using System.Collections;
 using System;
 
 public class GameView : MonoBehaviour {
-    IGameService gameService;
+    private IGameService gameService;
+    private IGameUIService gameUIService;
 
 	void Start () {
         gameService = new GameService();
-        gameService.setupGameView(this);
+        gameService.SetupGameView(this);
 	}
 
 	void Update () {
         gameService.MovePlayer();
-        gameService.MovePlayerToBusStop();
+        gameService.GoWalk();
+
+        //if (Input.GetKeyDown(KeyCode.F5))
+        //    GameManager.getInstance().ChangeScene("Cena_Fired");
 	}
+
+    public void SetupUIService(IGameUIService service)
+    {
+        if (gameUIService == null)
+            gameUIService = service;
+        if(gameService != null)
+            gameService.SetupGameUIService(service);
+    }
 }

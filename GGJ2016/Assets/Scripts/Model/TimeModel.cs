@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Linq;
 
 public class TimeModel {
-    private int hour = 5;
-    private int minute = 30;
+    private int hour = 6;
+    private int minute = 20;
     private int day = 1;
 
-    private readonly string[] months = new string[] {
+    private string month;
+
+    public static readonly string[] Months = new string[] {
         "Jan",
         "Feb", 
         "Mar",
@@ -28,6 +29,10 @@ public class TimeModel {
         }
         set
         {
+            while (value > 23)
+                value -= 24;
+            while (value < 0)
+                value += 24;
             hour = value;
         }
     }
@@ -39,6 +44,16 @@ public class TimeModel {
         }
         set
         {
+            while(value > 59)
+            {
+                value -= 60;
+                Hour++;
+            }
+            while(value < 0)
+            {
+                value += 60;
+                Hour--;
+            }
             minute = value;
         }
     }
@@ -60,11 +75,16 @@ public class TimeModel {
             day = value;
         }
     }
-    public string[] Months
+    public string Month
     {
         get
         {
-            return months;
+            return month;
+        }
+        set
+        {
+            if (Months.Contains(value))
+                month = value;
         }
     }
 }

@@ -1,0 +1,138 @@
+fileFormatVersion: 2
+guid: a15351153f9f9a14e8df50d490bb63b2
+timeCreated: 1454207279
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Casa01
+    100004: Casa02
+    100006: Casa03
+    100008: Casa04
+    100010: CAsa05
+    100012: Casa06
+    100014: Casa07
+    100016: Cena01
+    100018: Montanha
+    100020: Passarela
+    100022: Ponto
+    100024: Postes
+    100026: Rua
+    400000: //RootNode
+    400002: Casa01
+    400004: Casa02
+    400006: Casa03
+    400008: Casa04
+    400010: CAsa05
+    400012: Casa06
+    400014: Casa07
+    400016: Cena01
+    400018: Montanha
+    400020: Passarela
+    400022: Ponto
+    400024: Postes
+    400026: Rua
+    2300000: //RootNode
+    2300002: Casa01
+    2300004: Casa02
+    2300006: Casa03
+    2300008: Casa04
+    2300010: CAsa05
+    2300012: Casa06
+    2300014: Casa07
+    2300016: Montanha
+    2300018: Passarela
+    2300020: Ponto
+    2300022: Postes
+    2300024: Rua
+    3300000: //RootNode
+    3300002: Casa01
+    3300004: Casa02
+    3300006: Casa03
+    3300008: Casa04
+    3300010: CAsa05
+    3300012: Casa06
+    3300014: Casa07
+    3300016: Montanha
+    3300018: Passarela
+    3300020: Ponto
+    3300022: Postes
+    3300024: Rua
+    4300000: Cena01
+    4300002: Montanha
+    4300004: Rua
+    4300006: Passarela
+    4300008: Postes
+    4300010: Ponto
+    4300012: Casa01
+    4300014: Casa02
+    4300016: Casa03
+    4300018: Casa04
+    4300020: CAsa05
+    4300022: Casa06
+    4300024: Casa07
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

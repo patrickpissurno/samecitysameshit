@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public interface IGameUIService {
     bool ClockTick { get; }
     SpawnerView SpawnerView { set; }
 
-    void RestartGame();
+    void ReloadScene();
 
     void GoToMainMenu();
 
@@ -26,13 +27,13 @@ public interface IGameUIService {
 
     float GetHappiness();
 
-    string GetRandomMonth();
+    string GetMonth();
 
     void ShowUberUI(Vector3 cameraPosition);
 
     void HideUberUI(Vector3 cameraPosition);
 
-    void SetupRebuFillAmount(GameObject gameObject);
+    void SetupUberFillAmount(Image image);
 
-    void CallToRebu(float fillAmount);
+    void CallUber(float fillAmount);
 }

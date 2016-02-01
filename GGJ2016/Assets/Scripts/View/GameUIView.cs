@@ -3,35 +3,70 @@ using UnityEngine.UI;
 
 public class GameUIView : MonoBehaviour {
 
-    public Text Day;
-    public Text Month;
-    public Text Clock;
-    public Image BossIndicator;
-    public PauseMenuView PauseMenuView;
-    private IGameUIService Service;
-    private static Sprite[] BossSprites;
-    private int BossSpriteIndex = 0;
-    public LightView LightView;
-    public SpawnerView SpawnerView;
+    private IGameUIService UIService;
+
+    //[SerializeField] makes a variable appear in the Unity Inspector
+    //without the need to make it public. It's kinda the oposite of
+    //[HideInInspector]
+    [Header("UI Components References", order = 1)]
+    [SerializeField]
+    private Text day;
+    [SerializeField]
+    private Text month;
+    [SerializeField]
+    private Text clock;
+    [SerializeField]
+    private Image bossIndicator;
+    [SerializeField]
+    private Image uberOuter;
+    [SerializeField]
+    private Image uberInner;
+
+    [Header("View References", order = 0)]
+    [SerializeField]
+    private LightView lightView;
+    [SerializeField]
+    private SpawnerView spawnerView;
+    [SerializeField]
+    private PauseMenuView pauseMenuView;
+    [SerializeField]
+    private GameView gameView;
+
+    private static Sprite[] bossSprites;
+    private int bossSpriteIndex = 0;
 
 	void Start () {
-        Service = new GameUIService();
-        if(LightView != null)
-            LightView.Service = Service;
-        if (SpawnerView != null)
+        UIService = new GameUIService(uberOuter);
+
+        //Init Light View
+        if(lightView != null)
+            lightView.Service = UIService;
+
+        //Init Spawner View
+        if (spawnerView != null)
         {
-            SpawnerView.Service = Service;
-            Service.SpawnerView = SpawnerView;
-            SpawnerView.DelayedStart();
+            spawnerView.Service = UIService;
+            UIService.SpawnerView = spawnerView;
+            spawnerView.DelayedStart();
         }
+
+        //Init Game View
+        if(gameView != null)
+        {
+            gameView.SetupUIService(UIService);
+        }
+
         LoadBossSprites();
         UpdateMonthView();
 	}
 
     void Update()
     {
-        Service.UpdateTimer(Time.deltaTime);
-        Service.UpdateGame();
+        //Service Update
+        UIService.UpdateTimer(Time.deltaTime);
+        UIService.UpdateGame();
+
+        //User Interface Update
         UpdateClockView();
         UpdateDayView();
         SetupRebuFillAmount();
@@ -40,49 +75,44 @@ public class GameUIView : MonoBehaviour {
 
     public void PauseButtonClick()
     {
-        PauseMenuView.Show();
+        pauseMenuView.Show();
     }
 
     void UpdateClockView()
     {
-        Clock.text = Service.GetHour() + (Service.ClockTick ? ":" : " ") + Service.GetMinute();
+        clock.text = UIService.GetHour() + (UIService.ClockTick ? ":" : " ") + UIService.GetMinute();
     }
 
     void UpdateDayView()
     {
-        Day.text = Service.GetDay().ToString();
+        day.text = UIService.GetDay().ToString();
     }
 
     void UpdateMonthView()
     {
-        Month.text = Service.GetRandomMonth();
+        month.text = UIService.GetMonth();
     }
 
     void UpdateBossSprite()
     {
-        int spriteIndex = Mathf.FloorToInt(8 - 8 * Service.GetHappiness());
+        int spriteIndex = Mathf.FloorToInt(8 - 8 * UIService.GetHappiness());
         if (spriteIndex > 7)
             spriteIndex = 7;
-        if (BossSpriteIndex != spriteIndex)
+        if (bossSpriteIndex != spriteIndex)
         {
-            BossSpriteIndex = spriteIndex;
-            BossIndicator.sprite = BossSprites[BossSpriteIndex];
+            bossSpriteIndex = spriteIndex;
+            bossIndicator.sprite = bossSprites[bossSpriteIndex];
         }
-    }
-
-    public IGameUIService GetService()
-    {
-        return Service;
     }
     
     public void SetupRebuFillAmount()
     {
-        Service.SetupRebuFillAmount(GameObject.Find(ElementType.Rebu.ToString()));
+        UIService.SetupUberFillAmount(uberInner);
     }
 
     void LoadBossSprites()
     {
-        if(BossSprites == null)
-            BossSprites = Resources.LoadAll<Sprite>("Sprites/boss");
+        if(bossSprites == null)
+            bossSprites = Resources.LoadAll<Sprite>("Sprites/boss");
     }
 }

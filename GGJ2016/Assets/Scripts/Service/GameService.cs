@@ -4,9 +4,13 @@ using System;
 
 public class GameService : IGameService
 {
-    private static readonly GameObject playerObject = GameObject.Find(ElementType.Player.ToString());
+    private static GameObject playerObject = null;
 
+<<<<<<< HEAD
     private static readonly float speed = 1.5f;
+=======
+    private const int speed = 5;
+>>>>>>> refs/remotes/origin/develop
 
     private GameView gameView;
 
@@ -15,28 +19,66 @@ public class GameService : IGameService
     private GameObject currentGameObject;
 
     private GameObject camObject;
+    private Animation anim;
 
+<<<<<<< HEAD
     private Animation anim;
 
     public void setupGameView(GameView gameView)
+=======
+    private string currentTag;
+    private IGameUIService gameUIService = null;
+
+    public void SetupGameView(GameView gameView)
+>>>>>>> refs/remotes/origin/develop
     {
+        LoadPlayer();
+
         this.gameView = gameView;
         player = new PlayerModel();
-        InputManager.onClickListener += OnClick;
+        InputManager.instance.onClickListener += OnClick;
 
         camObject = GameObject.Find(ElementType.MainCamera.ToString());
 
+<<<<<<< HEAD
         if(anim == null) {
+=======
+
+        if (anim == null)
+        {
+>>>>>>> refs/remotes/origin/develop
             anim = playerObject.GetComponent<Animation>();
         }
     }
 
-    public void MovePlayer()
+    public void SetupGameUIService(IGameUIService service)
     {
-        if (currentGameObject != null)
+        if (gameUIService == null)
+            gameUIService = service;
+    }
+
+    private void LoadPlayer()
+    {
+        if (playerObject == null)
+            playerObject = GameObject.Find(ElementType.Player.ToString());
+    }
+
+    private void RotateAndAnim()
+    {
+        Vector3 forward = player.getTargetPosition() - playerObject.transform.position;
+        forward.y = 0;
+
+        if (Vector3.Distance(Vector3.zero, forward) > 0.2f && player.getTargetPosition() != Vector3.zero)
         {
-            if (currentGameObject.name.Equals(TagType.Limit))
+            Quaternion direction = Quaternion.LookRotation(forward);
+            playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, direction, speed * 4 * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(Vector3.zero, forward) > 0.1f)
+        {
+            if (!anim.IsPlaying("Walk"))
             {
+<<<<<<< HEAD
                 Vector3 forward = player.getTargetPosition() - playerObject.transform.position;
                 forward.y = 0;
 
@@ -58,62 +100,272 @@ public class GameService : IGameService
 
                 playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
                 setFixedPosition();
+=======
+                anim.CrossFade("Walk", 0.3f);
+            }
+        }
+        else {
+            if (!anim.IsPlaying("Idle"))
+            {
+                anim.CrossFade("Idle", 0.3f);
+>>>>>>> refs/remotes/origin/develop
             }
         }
     }
 
-    private void setFixedPosition()
+    private void SetFixedPosition()
     {
+<<<<<<< HEAD
+=======
+        LoadPlayer();
+>>>>>>> refs/remotes/origin/develop
         playerObject.transform.position = new Vector3(playerObject.transform.position.x, 0.16f, playerObject.transform.position.z);
     }
 
     void OnClick(GameObject gameObject, Vector3 clickPosition)
     {
         currentGameObject = gameObject;
+        currentTag = gameObject.tag;
+
+        InitRoutine(gameObject.tag);
 
         switch (gameObject.tag)
         {
             case TagType.BusStop:
-                MovePlayerToBusStop();
-                RunAnimCamToBusStop();
-                player.setTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
+                player.SetTag(gameObject.tag);
+                MovePlayer();
 
-                Debug.Log(gameObject.tag);
+                RunAnimCamZoomInToBusStop();
+                //MoveToAnotherPoint();
+
+                player.SetTargetPosition(new Vector3(5.5f, player.getCurrentPosition().y, 14.5f));
                 break;
 
 
             case TagType.Limit:
-                MovePlayer();
-                RunAnimBusStopToDefault();
-                player.setTargetPosition(clickPosition);
+                HandleLimitAnim();
+                player.SetTag(gameObject.tag);
 
-                Debug.Log(gameObject.tag);
+                MovePlayer();
+                player.SetTargetPosition(clickPosition);
+                break;
+
+            case TagType.Bus:
+                break;
+
+            case TagType.Taxi:
+
+                break;
+
+            case TagType.Rebu:
+
+                break;
+
+            case TagType.Bike:
+                break;
+
+            case TagType.Walk:
+                player.SetTag(gameObject.tag);
+
+                MovePlayer();
+                MoveToAnotherPoint();
+                player.SetTargetPosition(new Vector3(20.81f, player.getCurrentPosition().y, 14.5f));
+                break;
+
+            case TagType.Garage:
+                MovePlayer();
+                player.SetTag(gameObject.tag);
+
+                RunAnimOpenGarage(gameObject);
+                RunAnimCamZoomInToGarage();
+                //MoveToAnotherPoint();
+
+                player.SetTargetPosition(new Vector3(-1.5f, player.getCurrentPosition().y, 14.5f));
                 break;
 
             default:
                 break;
         }
-
-
-        player.setCurrentPosition(playerObject.transform.position);
+        player.SetCurrentPosition(playerObject.transform.position);
     }
 
-    public void MovePlayerToBusStop()
+    public void MovePlayer()
     {
         if (currentGameObject != null)
         {
-            playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-            setFixedPosition();
+            if (currentGameObject.tag == player.getTag())
+            {
+                LoadPlayer();
+                RotateAndAnim();
+
+                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
+                SetFixedPosition();
+            }
+            return;
         }
     }
 
-    public void RunAnimCamToBusStop()
+    public void RunAnimCamZoomInToBusStop()
     {
         camObject.GetComponent<Animator>().SetBool("canZoom", true);
+        player.SetProximity(true);
+        Debug.Log("is near bus stop");
     }
 
-    public void RunAnimBusStopToDefault()
+    public void RunAnimCamZoomOutToBusStop()
     {
         camObject.GetComponent<Animator>().SetBool("canZoom", false);
+        player.SetProximity(false);
+        Debug.Log("is not near bus stop");
     }
+
+    public void RunAnimOpenGarage(GameObject gameobject)
+    {
+        gameobject.GetComponent<Animator>().SetBool("canOpen", true);
+    }
+
+    public void RunAnimCamZoomInToGarage()
+    {
+        camObject.GetComponent<Animator>().SetBool("canZoomToGarage", true);
+        player.SetProximity(true);
+        Debug.Log("is near garage");
+    }
+
+    public void RunAnimCamZoomOutToGarage()
+    {
+        camObject.GetComponent<Animator>().SetBool("canZoomToGarage", false);
+        player.SetProximity(false);
+        Debug.Log("is not near garage");
+    }
+
+    public void RunAnimCamMoveFromStopBusToGarage(bool isNear)
+    {
+        if (isNear)
+        {
+            camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.ToGarage);
+            Debug.Log("RunAnimCamMoveFromStopBusToGarage");
+        }
+    }
+
+    public void RunAnimCamMoveFromGarageToStopBus(bool isNear)
+    {
+        if (isNear)
+        {
+            camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.ToStopBus);
+            Debug.Log("RunAnimCamMoveFromGarageToStopBus");
+        }
+    }
+
+    public void RunAnimCamOutGarage()
+    {
+        camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutGarage);
+    }
+
+    public void RunAnimCamOutStopBus()
+    {
+        camObject.GetComponent<Animator>().SetInteger("moveToAnotherPoint", MoveType.OutStopBus);
+    }
+
+    public void RunAnimCamWalk()
+    {
+        camObject.GetComponent<Animator>().SetBool("canWalk",true);
+    }
+
+    private void HandleLimitAnim()
+    {
+        switch (player.getTag())
+        {
+            case TagType.BusStop:
+                RunAnimCamZoomOutToBusStop();
+                break;
+
+            case TagType.Garage:
+                RunAnimCamZoomOutToGarage();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void MoveToAnotherPoint()
+    {
+        Debug.Log("MoveToAnotherPoint is near");
+        switch (player.getTag())
+        {
+            case TagType.Walk:
+                RunAnimCamWalk();
+                break;
+
+            case TagType.BusStop:
+                RunAnimCamMoveFromStopBusToGarage(player.isNear());
+                break;
+
+            case TagType.Garage:
+                RunAnimCamMoveFromGarageToStopBus(player.isNear());
+                break;
+
+            case TagType.Limit:
+                RunAnimCamOutGarage();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void GoWalk()
+    {
+        if (player.getTag() == TagType.Walk)
+        {
+            if (playerObject.transform.position.x >= 15)
+            {
+                GameManager.GetInstance().ChangeScene(new SceneRoutineModel().walk[UnityEngine.Random.Range(0, 3)]);
+            }
+        }
+
+    }
+
+    private void InitRoutine(string tag)
+    {
+        SceneRoutineModel sceneRoutine = new SceneRoutineModel();
+        int num = UnityEngine.Random.Range(0, 3);
+        switch (tag)
+        {
+            case TagType.Walk:
+                break;
+
+            case TagType.Taxi:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.taxi[num]);
+                break;
+
+            case TagType.Rebu:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.uber[num]);
+                break;
+
+            case TagType.Bus:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.bus[num]);
+                break;
+
+            case TagType.Bike:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.bike[num]);
+                break;
+
+            case TagType.Train:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.train[num]);
+                break;
+
+            case TagType.Car:
+                GameManager.GetInstance().ChangeScene(sceneRoutine.car[num]);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //public void RunAnimCloseGarage()
+    //{
+    //    GameObject.Find(TagType.Garage.ToString()).GetComponent<Animator>().SetBool("canOpen", false);
+    //}
 }

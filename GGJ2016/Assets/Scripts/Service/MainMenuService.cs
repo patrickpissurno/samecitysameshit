@@ -4,11 +4,11 @@ public class MainMenuService : IMainMenuService
 {
     public void OnPlayClick()
     {
-        SceneManager.LoadScene("Game");
+        GameManager.GetInstance().ChangeScene("CutsceneInicial");
     }
 
     public void OnAboutClick()
     {
-        SceneManager.LoadScene("About");
+        GameManager.GetInstance().ChangeScene("About");
     }
 }

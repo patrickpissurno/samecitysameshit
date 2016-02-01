@@ -3,13 +3,15 @@ using System.Collections;
 
 public interface IGameService
 {
-    void setupGameView(GameView GameView);
+    void SetupGameView(GameView gameView);
+
+    void SetupGameUIService(IGameUIService service);
 
     void MovePlayer();
 
-    void MovePlayerToBusStop();
+    void RunAnimCamZoomInToBusStop();
 
-    void RunAnimCamToBusStop();
+    void RunAnimCamZoomOutToBusStop();
 
-    void RunAnimBusStopToDefault();
+    void GoWalk();
 }

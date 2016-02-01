@@ -8,7 +8,10 @@ public class SpawnerView : MonoBehaviour {
     public Transform SpawnPositionLeft;
     public Transform SpawnPositionRight;
 
-    public GameObject Car;
+    public Transform SpawnTrainLeft;
+    public Transform SpawnTrainRight;
+
+    public GameObject[] Car;
     public GameObject Bus;
     public GameObject Taxi;
     public GameObject Uber;
@@ -18,12 +21,14 @@ public class SpawnerView : MonoBehaviour {
     private const int POOL_BUS_AMOUNT = 1;
     private const int POOL_TAXI_AMOUNT = 2;
     private const int POOL_UBER_AMOUNT = 1;
-    private const int POOL_TRAIN_AMOUNT = 2;
+    private const int POOL_TRAIN_AMOUNT = 1;
 
+    //The sum of the bellow chances must be equal to 1
     private const float CAR_SPAWN_CHANCE = .7f;
     private const float BUS_SPAWN_CHANCE = .1f;
     private const float TAXI_SPAWN_CHANCE = .2f;
-    private const float TRAIN_SPAWN_CHANCE = .1f;
+    //This chance is independant
+    private const float TRAIN_SPAWN_CHANCE = .4f;
 
     public List<GameObject> CarPool;
     public List<GameObject> BusPool;
@@ -46,7 +51,7 @@ public class SpawnerView : MonoBehaviour {
         BusPool = new List<GameObject>();
         TaxiPool = new List<GameObject>();
         UberPool = new List<GameObject>();
-        //TrainPool = new List<GameObject>();
+        TrainPool = new List<GameObject>();
     }
 
     public void DelayedStart()
@@ -55,7 +60,7 @@ public class SpawnerView : MonoBehaviour {
         SetupPool(EntityType.Bus, BusPool, POOL_BUS_AMOUNT);
         SetupPool(EntityType.Taxi, TaxiPool, POOL_TAXI_AMOUNT);
         SetupPool(EntityType.Uber, UberPool, POOL_UBER_AMOUNT);
-        //SetupPool(EntityType.Train, TrainPool, POOL_TRAIN_AMOUNT);
+        SetupPool(EntityType.Train, TrainPool, POOL_TRAIN_AMOUNT);
         StartCoroutine(SpawnEntities());
     }
 
@@ -68,23 +73,40 @@ public class SpawnerView : MonoBehaviour {
             tries++;
             spawned = SpawnRandomEntity();
         }
+
+        SpawnTrain();
         yield return new WaitForSeconds(2f + Random.Range(-1f, 1f));
         StartCoroutine(SpawnEntities());
+    }
+
+    void SpawnTrain()
+    {
+        float val = Random.Range(0f, 1f);
+        if (val < TRAIN_SPAWN_CHANCE)
+        {
+            Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnTrainLeft : SpawnTrainRight;
+            GameObject o = PoolInstantiate(EntityType.Train, Direction.position, Direction.rotation);
+            if (o != null)
+            {
+                TransportEntityView v = o.GetComponent<TransportEntityView>();
+                v.Speed = 4 + Random.Range(3f, 5f);
+            }
+        }
     }
 
     bool SpawnRandomEntity()
     {
         float val = Random.Range(0f, 1f);
-        EntityType Type;
-        Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnPositionLeft : SpawnPositionRight;
+        EntityType Type = EntityType.Car;
         if (val < CAR_SPAWN_CHANCE)
             Type = EntityType.Car;
         else if (val < CAR_SPAWN_CHANCE + BUS_SPAWN_CHANCE)
             Type = EntityType.Bus;
         else if (val < CAR_SPAWN_CHANCE + BUS_SPAWN_CHANCE + TAXI_SPAWN_CHANCE)
             Type = EntityType.Taxi;
-        else
-            Type = EntityType.Car;
+
+        Transform Direction = Random.Range(0f, 1f) < .5f ? SpawnPositionLeft : SpawnPositionRight;
+
         GameObject o = PoolInstantiate(Type, Direction.position, Direction.rotation);
         if (o != null)
         {
@@ -114,6 +136,8 @@ public class SpawnerView : MonoBehaviour {
                 o.SetActive(false);
                 o.transform.SetParent(holder.transform);
                 Pool.Add(o);
+                if(Type == EntityType.Car)
+                    prefab = GetPrefabByType(Type);
             }
         }
     }
@@ -134,14 +158,17 @@ public class SpawnerView : MonoBehaviour {
         List<GameObject> pool = GetPoolByType(Type);
         if(pool != null && pool.Count > 0)
         {
-            if (pool[0] != null)
+            if (Physics.OverlapSphere(Position, .5f).Length == 0)
             {
-                o = pool[0];
-                o.transform.position = Position;
-                o.transform.rotation = Rotation;
-                o.SetActive(true);
+                if (pool[0] != null)
+                {
+                    o = pool[0];
+                    o.transform.position = Position;
+                    o.transform.rotation = Rotation;
+                    o.SetActive(true);
+                }
+                pool.RemoveAt(0);
             }
-            pool.RemoveAt(0);
         }
         return o;
     }
@@ -176,7 +203,7 @@ public class SpawnerView : MonoBehaviour {
         switch (Type)
         {
             case EntityType.Car:
-                prefab = Car;
+                prefab = Car[Random.Range(0, Car.Length - 1)];
                 break;
             case EntityType.Bus:
                 prefab = Bus;
