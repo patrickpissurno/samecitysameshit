@@ -5,17 +5,31 @@ public class GameUIView : MonoBehaviour {
 
     private IGameUIService UIService;
 
-    public Text day;
-    public Text month;
-    public Text clock;
-    public Image bossIndicator;
-    public Image uberOuter;
-    public Image uberInner;
+    //[SerializeField] makes a variable appear in the Unity Inspector
+    //without the need to make it public. It's kinda the oposite of
+    //[HideInInspector]
 
-    public LightView lightView;
-    public SpawnerView spawnerView;
-    public PauseMenuView pauseMenuView;
-    public GameView gameView;
+    [SerializeField]
+    private Text day;
+    [SerializeField]
+    private Text month;
+    [SerializeField]
+    private Text clock;
+    [SerializeField]
+    private Image bossIndicator;
+    [SerializeField]
+    private Image uberOuter;
+    [SerializeField]
+    private Image uberInner;
+
+    [SerializeField]
+    private LightView lightView;
+    [SerializeField]
+    private SpawnerView spawnerView;
+    [SerializeField]
+    private PauseMenuView pauseMenuView;
+    [SerializeField]
+    private GameView gameView;
 
     private static Sprite[] bossSprites;
     private int bossSpriteIndex = 0;
