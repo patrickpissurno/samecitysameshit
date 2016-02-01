@@ -5,7 +5,7 @@ public interface IGameUIService {
     bool ClockTick { get; }
     SpawnerView SpawnerView { set; }
 
-    void RestartGame();
+    void ReloadScene();
 
     void GoToMainMenu();
 
@@ -33,7 +33,7 @@ public interface IGameUIService {
 
     void HideUberUI(Vector3 cameraPosition);
 
-    void SetupRebuFillAmount(Image image);
+    void SetupUberFillAmount(Image image);
 
-    void CallToRebu(float fillAmount);
+    void CallUber(float fillAmount);
 }

@@ -16,7 +16,7 @@ public class FinalSceneView : MonoBehaviour {
         }
 
         GameManager.WaitTime(3.5f, () => {
-            GameManager.getInstance().ChangeScene("About");
+            GameManager.GetInstance().ChangeScene("About");
         });
     }
 }

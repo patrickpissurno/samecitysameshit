@@ -74,7 +74,7 @@ public class MovePathComponentView : MonoBehaviour {
             instruction.target.SendMessage(instruction.callMethodOnEnd);
         }
         if (!string.IsNullOrEmpty(instruction.changeSceneOnEnd)) {
-            GameManager.getInstance().ChangeScene(instruction.changeSceneOnEnd);
+            GameManager.GetInstance().ChangeScene(instruction.changeSceneOnEnd);
         } else {
             BeginInstructions();
         }

@@ -6,17 +6,16 @@ public class GameUIService : IGameUIService
 {
     private static TimeModel TimeModel;
     private static PlayerStatsModel PlayerStatsModel;
-    public static GameUIService UIService;
+
     private const float TIMER_SPEED = .75f;
 
     private float timer = 0;
     private bool clockTick = false;
     private bool updateTick = false;
+    private float timerDelay;
 
     private Image RebuBG;
     private RebuModel RebuObject;
-
-    private float timerDelay;
 
     private SpawnerView spawnerView;
 
@@ -37,16 +36,26 @@ public class GameUIService : IGameUIService
             return clockTick;
         }
     }
+    #endregion
 
-    public TimeModel GetTimeModel()
+    #region Static
+    public static TimeModel GetTimeModel()
     {
         return TimeModel;
+    }
+    public static PlayerStatsModel GetPlayerStatsModel()
+    {
+        return PlayerStatsModel;
+    }
+    public static void Reset()
+    {
+        TimeModel = null;
+        PlayerStatsModel = null;
     }
     #endregion
 
     public GameUIService(Image RebuBG)
     {
-        UIService = this;
         if (TimeModel == null)
         {
             TimeModel = new TimeModel();
@@ -56,6 +65,7 @@ public class GameUIService : IGameUIService
         {
             TimeModel.Hour = 6;
             TimeModel.Minute = 20;
+            TimeModel.Day++;
         }
 
         if (PlayerStatsModel == null)
@@ -71,29 +81,24 @@ public class GameUIService : IGameUIService
         RebuBG.gameObject.SetActive(false);
     }
 
-    public void RestartGame()
+    public void ReloadScene()
     {
-        GameManager.getInstance().ChangeScene("Game");
+        GameManager.GetInstance().ChangeScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(SceneType.MainMenu.ToString());
+        GameManager.GetInstance().ChangeScene(SceneType.MainMenu.ToString());
     }
 
     public void GoToCredits()
     {
-        SceneManager.LoadScene(SceneType.About.ToString());
+        GameManager.GetInstance().ChangeScene(SceneType.About.ToString());
     }
 
     public void GoToGameOver()
     {
-        GameManager.getInstance().ChangeScene("Cena_Fired");
-    }
-
-    public void SetHapiness(float val)
-    {
-        PlayerStatsModel.Hapiness = val;
+        GameManager.GetInstance().ChangeScene("Cena_Fired");
     }
 
     public void UpdateTimer(float deltaTime)
@@ -174,16 +179,16 @@ public class GameUIService : IGameUIService
         }
     }
 
-    public void SetupRebuFillAmount(Image image)
+    public void SetupUberFillAmount(Image image)
     {
         float speed = Time.deltaTime * 0.5f;
 
         image.fillAmount = (RebuObject.isRunning() && DelayToAnim()) ? image.fillAmount + speed : 0;
 
-        CallToRebu(image.fillAmount);
+        CallUber(image.fillAmount);
     }
 
-    public void CallToRebu(float fillAmount)
+    public void CallUber(float fillAmount)
     {
         if (fillAmount >= 1)
         {
@@ -228,7 +233,7 @@ public class GameUIService : IGameUIService
         {
             PlayerStatsModel.Hapiness -= .1f;
             TimeModel.Day++;
-            RestartGame();
+            ReloadScene();
         }
     }
 
@@ -244,11 +249,5 @@ public class GameUIService : IGameUIService
     private void ClearDelay()
     {
         timerDelay = 0;
-    }
-
-    public static void Reset()
-    {
-        TimeModel = null;
-        PlayerStatsModel = null;
     }
 }

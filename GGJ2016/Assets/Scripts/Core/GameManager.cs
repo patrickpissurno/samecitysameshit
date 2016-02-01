@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         }
 
         GameManager.WaitTime(1, () => {
-            Application.LoadLevel(sceneName);
+            SceneManager.LoadScene(sceneName);
         });
     }
     public static T getBean<T>() where T : Component {
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void WaitTime(float time, Action callback){
-        GameManager instance = GameManager.getInstance();
+        GameManager instance = GameManager.GetInstance();
         instance.StartCoroutine(KeepWaiting(time, callback));
     }
 
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
         GameManager.IsPaused = false;
     }
 
-    public static GameManager getInstance() {
+    public static GameManager GetInstance() {
         return getBean<GameManager>();
     }
 

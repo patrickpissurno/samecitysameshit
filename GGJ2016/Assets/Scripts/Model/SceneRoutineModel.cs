@@ -42,5 +42,11 @@ public class SceneRoutineModel
         "Trem_ViagemNormal"
     };
 
-    public string getSceneDefault() { return defaultScene; }
+    public string[] uber = new string[] {
+        "Uber_PneuFurou",
+        "Uber_PneuFurou",
+        "Uber_ViagemNormal"
+    };
+
+    public string GetDefaultScene() { return defaultScene; }
 }
