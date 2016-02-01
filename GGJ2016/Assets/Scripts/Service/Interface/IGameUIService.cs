@@ -27,7 +27,7 @@ public interface IGameUIService {
 
     float GetHappiness();
 
-    string GetRandomMonth();
+    string GetMonth();
 
     void ShowUberUI(Vector3 cameraPosition);
 

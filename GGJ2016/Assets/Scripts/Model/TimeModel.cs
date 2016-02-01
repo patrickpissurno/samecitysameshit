@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Linq;
 
 public class TimeModel {
     private int hour = 6;
     private int minute = 20;
     private int day = 1;
 
-    private readonly string[] months = new string[] {
+    private string month;
+
+    public static readonly string[] Months = new string[] {
         "Jan",
         "Feb", 
         "Mar",
@@ -60,11 +61,16 @@ public class TimeModel {
             day = value;
         }
     }
-    public string[] Months
+    public string Month
     {
         get
         {
-            return months;
+            return month;
+        }
+        set
+        {
+            if (Months.Contains(value))
+                month = value;
         }
     }
 }

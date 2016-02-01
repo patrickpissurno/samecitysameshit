@@ -19,6 +19,8 @@ public class GameUIService : IGameUIService
     private float timerDelay;
 
     private SpawnerView spawnerView;
+
+    #region Get & Set
     public SpawnerView SpawnerView
     {
         set
@@ -40,12 +42,16 @@ public class GameUIService : IGameUIService
     {
         return TimeModel;
     }
+    #endregion
 
     public GameUIService(Image RebuBG)
     {
         UIService = this;
         if (TimeModel == null)
+        {
             TimeModel = new TimeModel();
+            TimeModel.Month = TimeModel.Months[Random.Range(0, 11)];
+        }
         else
         {
             TimeModel.Hour = 6;
@@ -135,9 +141,9 @@ public class GameUIService : IGameUIService
         return TimeModel.Day;
     }
 
-    public string GetRandomMonth()
+    public string GetMonth()
     {
-        return TimeModel.Months[Random.Range(0, 11)]; ;
+        return TimeModel.Month;
     }
 
     public void ShowUberUI(Vector3 cameraPosition)

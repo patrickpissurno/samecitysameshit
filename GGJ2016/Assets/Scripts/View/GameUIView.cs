@@ -57,7 +57,7 @@ public class GameUIView : MonoBehaviour {
 
     void UpdateMonthView()
     {
-        Month.text = Service.GetRandomMonth();
+        Month.text = Service.GetMonth();
     }
 
     void UpdateBossSprite()
