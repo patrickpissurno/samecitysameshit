@@ -11,14 +11,11 @@ public class MovePathModel {
     public bool useRotation;
 
     public string playAnimation;
-<<<<<<< HEAD
-=======
     public bool useCrossfade = true;
     
     public Transform targetForStop;
     public bool stopOnEnd;
 
->>>>>>> refs/remotes/origin/develop
     public string changeSceneOnEnd;
 
     public GameObject target;

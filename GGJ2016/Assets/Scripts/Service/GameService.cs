@@ -6,11 +6,7 @@ public class GameService : IGameService
 {
     private static GameObject playerObject = null;
 
-<<<<<<< HEAD
-    private static readonly float speed = 1.5f;
-=======
     private const int speed = 5;
->>>>>>> refs/remotes/origin/develop
 
     private GameView gameView;
 
@@ -21,16 +17,10 @@ public class GameService : IGameService
     private GameObject camObject;
     private Animation anim;
 
-<<<<<<< HEAD
-    private Animation anim;
-
-    public void setupGameView(GameView gameView)
-=======
     private string currentTag;
     private IGameUIService gameUIService = null;
 
     public void SetupGameView(GameView gameView)
->>>>>>> refs/remotes/origin/develop
     {
         LoadPlayer();
 
@@ -40,13 +30,9 @@ public class GameService : IGameService
 
         camObject = GameObject.Find(ElementType.MainCamera.ToString());
 
-<<<<<<< HEAD
-        if(anim == null) {
-=======
 
         if (anim == null)
         {
->>>>>>> refs/remotes/origin/develop
             anim = playerObject.GetComponent<Animation>();
         }
     }
@@ -78,29 +64,6 @@ public class GameService : IGameService
         {
             if (!anim.IsPlaying("Walk"))
             {
-<<<<<<< HEAD
-                Vector3 forward = player.getTargetPosition() - playerObject.transform.position;
-                forward.y = 0;
-
-                if (Vector3.Distance(Vector3.zero, forward) > 0.2f && player.getTargetPosition() != Vector3.zero) {
-                    Quaternion direction = Quaternion.LookRotation(forward);
-                    playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, direction, speed * 4 * Time.deltaTime);
-                }
-
-                if (Vector3.Distance(Vector3.zero, forward) > 0.1f) {
-                    if (!anim.IsPlaying("Walk")) {
-                        anim.CrossFade("Walk", 0.3f);
-                    }
-                } else {
-                    if (!anim.IsPlaying("Idle")) {
-                        anim.CrossFade("Idle", 0.3f);
-                    }
-                }
-
-
-                playerObject.transform.position = Vector3.MoveTowards(playerObject.transform.position, player.getTargetPosition(), speed * Time.deltaTime);
-                setFixedPosition();
-=======
                 anim.CrossFade("Walk", 0.3f);
             }
         }
@@ -108,17 +71,13 @@ public class GameService : IGameService
             if (!anim.IsPlaying("Idle"))
             {
                 anim.CrossFade("Idle", 0.3f);
->>>>>>> refs/remotes/origin/develop
             }
         }
     }
 
     private void SetFixedPosition()
     {
-<<<<<<< HEAD
-=======
         LoadPlayer();
->>>>>>> refs/remotes/origin/develop
         playerObject.transform.position = new Vector3(playerObject.transform.position.x, 0.16f, playerObject.transform.position.z);
     }
 
