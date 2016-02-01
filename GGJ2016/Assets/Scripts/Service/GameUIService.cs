@@ -14,12 +14,12 @@ public class GameUIService : IGameUIService
     private bool updateTick = false;
     private float timerDelay;
 
-    private Image RebuBG;
-    private RebuModel RebuObject;
+    private Image uberOuter;
+    private UberModel uberModel;
 
     private SpawnerView spawnerView;
 
-    #region Get & Set
+    #region Getters & Setters
     public SpawnerView SpawnerView
     {
         set
@@ -34,93 +34,6 @@ public class GameUIService : IGameUIService
         get
         {
             return clockTick;
-        }
-    }
-    #endregion
-
-    #region Static
-    public static TimeModel GetTimeModel()
-    {
-        return TimeModel;
-    }
-    public static PlayerStatsModel GetPlayerStatsModel()
-    {
-        return PlayerStatsModel;
-    }
-    public static void Reset()
-    {
-        TimeModel = null;
-        PlayerStatsModel = null;
-    }
-    #endregion
-
-    public GameUIService(Image RebuBG)
-    {
-        if (TimeModel == null)
-        {
-            TimeModel = new TimeModel();
-            TimeModel.Month = TimeModel.Months[Random.Range(0, 11)];
-        }
-        else
-        {
-            TimeModel.Hour = 6;
-            TimeModel.Minute = 20;
-            TimeModel.Day++;
-        }
-
-        if (PlayerStatsModel == null)
-            PlayerStatsModel = new PlayerStatsModel();
-
-        RebuObject = new RebuModel(false);
-        this.RebuBG = RebuBG;
-
-        InputManager.instance.onCameraClickPressedListener += ShowUberUI;
-        InputManager.instance.onCameraClickUpListener += HideUberUI;
-
-        if(RebuBG != null)
-        RebuBG.gameObject.SetActive(false);
-    }
-
-    public void ReloadScene()
-    {
-        GameManager.GetInstance().ChangeScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void GoToMainMenu()
-    {
-        GameManager.GetInstance().ChangeScene(SceneType.MainMenu.ToString());
-    }
-
-    public void GoToCredits()
-    {
-        GameManager.GetInstance().ChangeScene(SceneType.About.ToString());
-    }
-
-    public void GoToGameOver()
-    {
-        GameManager.GetInstance().ChangeScene("Cena_Fired");
-    }
-
-    public void UpdateTimer(float deltaTime)
-    {
-        timer += deltaTime * TIMER_SPEED;
-        clockTick = timer % .25 <= .1f;
-        updateTick = false;
-        if (timer > 1)
-        {
-            timer = 0;
-            TimeModel.Minute++;
-            if (TimeModel.Minute > 59)
-            {
-                TimeModel.Minute = 0;
-                TimeModel.Hour++;
-            }
-            if (TimeModel.Hour > 23)
-            {
-                TimeModel.Hour = 0;
-                TimeModel.Day++;
-            }
-            updateTick = true;
         }
     }
 
@@ -151,30 +64,124 @@ public class GameUIService : IGameUIService
         return TimeModel.Month;
     }
 
+    public float GetHappiness()
+    {
+        return PlayerStatsModel.Hapiness;
+    }
+    #endregion
+
+    #region Static
+    public static TimeModel GetTimeModel()
+    {
+        return TimeModel;
+    }
+    public static PlayerStatsModel GetPlayerStatsModel()
+    {
+        return PlayerStatsModel;
+    }
+    public static void Reset()
+    {
+        TimeModel = null;
+        PlayerStatsModel = null;
+    }
+    #endregion
+
+    public GameUIService(Image uberOuter)
+    {
+        if (TimeModel == null)
+        {
+            TimeModel = new TimeModel();
+            TimeModel.Month = TimeModel.Months[Random.Range(0, 11)];
+        }
+        else
+            TimeModel.Day++;
+
+        //Set the wake up hour
+        TimeModel.Hour = 6;
+        TimeModel.Minute = 0;
+
+        if (PlayerStatsModel == null)
+            PlayerStatsModel = new PlayerStatsModel();
+
+        uberModel = new UberModel(false);
+        this.uberOuter = uberOuter;
+
+        InputManager.instance.onCameraClickPressedListener += ShowUberUI;
+        InputManager.instance.onCameraClickUpListener += HideUberUI;
+
+        if(uberOuter != null)
+            uberOuter.gameObject.SetActive(false);
+    }
+
+    #region Scene Related
+    public void ReloadScene()
+    {
+        GameManager.GetInstance().ChangeScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GoToMainMenu()
+    {
+        GameManager.GetInstance().ChangeScene(SceneType.MainMenu.ToString());
+    }
+
+    public void GoToCredits()
+    {
+        GameManager.GetInstance().ChangeScene(SceneType.About.ToString());
+    }
+
+    public void GoToGameOver()
+    {
+        GameManager.GetInstance().ChangeScene("Cena_Fired");
+    }
+    #endregion
+
+    public void UpdateTimer(float deltaTime)
+    {
+        timer += deltaTime * TIMER_SPEED;
+        clockTick = timer % .25 <= .1f;
+        updateTick = false;
+        if (timer > 1)
+        {
+            timer = 0;
+            TimeModel.Minute++;
+            if (TimeModel.Minute > 59)
+            {
+                TimeModel.Minute = 0;
+                TimeModel.Hour++;
+            }
+            if (TimeModel.Hour > 23)
+            {
+                TimeModel.Hour = 0;
+                TimeModel.Day++;
+            }
+            updateTick = true;
+        }
+    }
+
     public void ShowUberUI(Vector3 cameraPosition)
     {
-        if (RebuObject != null)
+        if (uberModel != null)
         {
-            RebuObject.SetRunAnimation(true);
+            uberModel.SetRunAnimation(true);
             if (DelayToAnim())
             {
-                RebuBG.gameObject.SetActive(true);
+                uberOuter.gameObject.SetActive(true);
                 Vector3 pos;
                 if (Application.platform == RuntimePlatform.Android)
                     pos = Input.GetTouch(0).position;
                 else
                     pos = Input.mousePosition;
-                RebuBG.transform.parent.position = pos;
+                uberOuter.transform.parent.position = pos;
             }
         }
     }
 
     public void HideUberUI(Vector3 cameraPosition)
     {
-        if (RebuObject != null)
+        if (uberModel != null)
         {
-            RebuObject.SetRunAnimation(false);
-            RebuBG.gameObject.SetActive(false);
+            uberModel.SetRunAnimation(false);
+            uberOuter.gameObject.SetActive(false);
             ClearDelay();
         }
     }
@@ -183,7 +190,7 @@ public class GameUIService : IGameUIService
     {
         float speed = Time.deltaTime * 0.5f;
 
-        image.fillAmount = (RebuObject.isRunning() && DelayToAnim()) ? image.fillAmount + speed : 0;
+        image.fillAmount = (uberModel.isRunning() && DelayToAnim()) ? image.fillAmount + speed : 0;
 
         CallUber(image.fillAmount);
     }
@@ -205,34 +212,26 @@ public class GameUIService : IGameUIService
         }
     }
 
-    public float GetHappiness()
-    {
-        return PlayerStatsModel.Hapiness;
-    }
-
     public void UpdateGame()
     {
         if (updateTick)
         {
             GameOverCheck();
-            UpdateHapiness();
+            EndOfTheDayCheck();
         }
-    }
-
-    void UpdateHapiness()
-    {
-        if (TimeModel.TotalMinutes == 7 * 60 + 30)
-            PlayerStatsModel.Hapiness -= .1f;
     }
 
     void GameOverCheck()
     {
         if (PlayerStatsModel.Hapiness == 0)
             GoToGameOver();
-        else if (TimeModel.TotalMinutes == 9 * 60)
+    }
+
+    void EndOfTheDayCheck()
+    {
+        if (BossMoodView.GetMood(GetTotalMinutes()) == 2)
         {
-            PlayerStatsModel.Hapiness -= .1f;
-            TimeModel.Day++;
+            PlayerStatsModel.Hapiness -= .2f;
             ReloadScene();
         }
     }

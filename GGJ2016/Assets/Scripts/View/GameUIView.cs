@@ -8,7 +8,7 @@ public class GameUIView : MonoBehaviour {
     //[SerializeField] makes a variable appear in the Unity Inspector
     //without the need to make it public. It's kinda the oposite of
     //[HideInInspector]
-
+    [Header("UI Components References", order = 1)]
     [SerializeField]
     private Text day;
     [SerializeField]
@@ -22,6 +22,7 @@ public class GameUIView : MonoBehaviour {
     [SerializeField]
     private Image uberInner;
 
+    [Header("View References", order = 0)]
     [SerializeField]
     private LightView lightView;
     [SerializeField]

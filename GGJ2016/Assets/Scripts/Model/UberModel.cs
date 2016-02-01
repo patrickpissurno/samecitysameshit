@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RebuModel {
+public class UberModel {
 
     private bool canRunAnimation;
 
-    public RebuModel(bool canRunAnimation)
+    public UberModel(bool canRunAnimation)
     {
         this.canRunAnimation = canRunAnimation;
     }

@@ -29,6 +29,10 @@ public class TimeModel {
         }
         set
         {
+            while (value > 23)
+                value -= 24;
+            while (value < 0)
+                value += 24;
             hour = value;
         }
     }
@@ -40,6 +44,16 @@ public class TimeModel {
         }
         set
         {
+            while(value > 59)
+            {
+                value -= 60;
+                Hour++;
+            }
+            while(value < 0)
+            {
+                value += 60;
+                Hour--;
+            }
             minute = value;
         }
     }

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-public class BossMoodView : MonoBehaviour {
-
+public class BossMoodView : MonoBehaviour
+{
+    public const int JOB_TIME = 7 * 60 + 20;
+    public const int END_OF_DAY_TIME = 8 * 60 + 20;
 
     public Texture2D[] moods;
     public Renderer moodSprite;
@@ -29,15 +31,9 @@ public class BossMoodView : MonoBehaviour {
                 return;
             }
 
-            int min = timeModel.TotalMinutes;
-            int frame = 0;
+            int bossMood = GetMood(timeModel.TotalMinutes);
 
-            if (min > 7 * 60 + 30 && min < 9 * 60)
-                frame = 1;
-            else if (min > 9 * 60)
-                frame = 2;
-
-            moodSprite.material.SetTexture("_MainTex", moods[frame]);
+            moodSprite.material.SetTexture("_MainTex", moods[bossMood]);
 
             string[] anims = new string[] {
                 "Happy",
@@ -45,15 +41,38 @@ public class BossMoodView : MonoBehaviour {
                 "Normal"
             };
 
-            GetComponent<Animation>().Play(anims[frame]);
+            GetComponent<Animation>().Play(anims[bossMood]);
 
-            UpdateHapiness(frame);
+            UpdateHapiness(bossMood);
         }
     }
 
-    private void UpdateHapiness(int frame)
+    private void UpdateHapiness(int mood)
     {
-        if (frame == 2)
-            playerStatsModel.Hapiness -= .1f;
+        switch(mood)
+        {
+            case 1:
+                playerStatsModel.Hapiness -= .1f;
+                break;
+            case 2:
+                playerStatsModel.Hapiness -= .2f;
+                break;
+        }
+        Debug.Log("Time: " + timeModel.Hour + "h " + timeModel.Minute + "min");
+    }
+
+    /// <summary>
+    /// Returns the mood of the boss based on the Time
+    /// </summary>
+    /// <param name="totalMinutes">TimeModel instance.TotalMinutes property</param>
+    /// <returns>0 = Happy, 1 = Bored, 2 = Angry</returns>
+    public static int GetMood(int totalMinutes)
+    {
+        if (totalMinutes > JOB_TIME && totalMinutes < END_OF_DAY_TIME)
+            return 1;
+        else if (totalMinutes > END_OF_DAY_TIME)
+            return 2;
+        else
+            return 0;
     }
 }
